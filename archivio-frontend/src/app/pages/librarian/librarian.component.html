@@ -1,1 +1,29 @@
-<p>librarian works!</p>
+<!-- This is the navigation header -->
+<app-header [title]="'Librarian'">
+  <!-- Link to the Book list Page -->
+  <li>
+    <a routerLink="book-list" routerLinkActive="active"> Book List </a>
+  </li>
+
+  <!-- Link to the add a Book page -->
+  <li>
+    <a routerLink="book-add" routerLinkActive="active"> Add Book </a>
+  </li>
+
+  <!-- Link to the Book request page -->
+  <li>
+    <a routerLink="book-request" routerLinkActive="active"> Book Request </a>
+  </li>
+
+  <!-- Link to the Membership Request Page -->
+  <li>
+    <a routerLink="membership-request" routerLinkActive="active">Membership</a>
+  </li>
+</app-header>
+
+<!-- This is the main content  -->
+<main>
+  <div id="center-container">
+    <router-outlet />
+  </div>
+</main>

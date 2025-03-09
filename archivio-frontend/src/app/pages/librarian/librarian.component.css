@@ -1,0 +1,45 @@
+:host {
+  min-height: 100vh;
+  min-width: 100vw;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--background--color);
+  color: var(--on--background--color);
+}
+
+a {
+  text-decoration: none;
+  padding: var(--padding--small);
+
+  color: var(--on--background--color);
+  border-radius: var(--border--radius);
+
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+  background-color: var(--card--variant--color);
+}
+
+.active {
+  background-color: var(--primary--color);
+}
+
+main {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+}
+
+#center-container {
+  width: 50vw;
+
+  display: flex;
+  justify-content: center;
+}
