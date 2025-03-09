@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +16,40 @@ export class RegisterComponent {
   errorMessage: string | null = null;
 
   // Injecting the necessary dependencies
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   // This function is invoked when the user clicks the register button
   onRegisterClick() {
-    console.log(this.userInput);
+    // Setting the loading state
+    this.isLoading = true;
+    const name = this.userInput.firstname + ' ' + this.userInput.lastname;
+
+    // Calling the api to register the user as Member
+    this.authService
+      .registerMember({
+        name: name.trim(),
+        email: this.userInput.email,
+        password: this.userInput.password,
+      })
+      .subscribe({
+        // Success State
+        next: () => {
+          this.isLoading = false;
+
+          // Redirecting to the login Screen
+          this.onGoToLoginClick();
+        },
+
+        // Error State
+        error: (error: Error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message;
+        },
+      });
   }
 
   // This function is invoked when the user clicks on the go to login button
