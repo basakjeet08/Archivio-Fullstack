@@ -1,5 +1,6 @@
 package dev.anirban.archivio_backend.entity;
 
+
 import dev.anirban.archivio_backend.dto.response.UserDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,8 +22,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Admin_DB")
-public class Admin implements UserDetails {
+@Table(name = "Librarian_DB")
+public class Librarian implements UserDetails {
 
     @Id
     @UuidGenerator

@@ -24,6 +24,13 @@ public class AuthController {
         return new ResponseWrapper<>("Admin Created Successfully", admin);
     }
 
+    // This function handles any register librarian request and returns the librarian created
+    @PostMapping(UrlConstants.REGISTER_LIBRARIAN_ENDPOINT)
+    public ResponseWrapper<UserDto> handleLibrarianRegistration(@RequestBody AuthRequest authRequest) {
+        UserDto librarian = service.registerLibrarian(authRequest).toUserDto();
+        return new ResponseWrapper<>("Librarian Created Successfully", librarian);
+    }
+
     // This function handles the login requests and returns the tokens
     @PostMapping(UrlConstants.LOGIN_ENDPOINT)
     public ResponseWrapper<UserDto> handleLoginRequest(@RequestBody AuthRequest authRequest) {

@@ -1,6 +1,7 @@
 package dev.anirban.archivio_backend.security;
 
 import dev.anirban.archivio_backend.constants.UrlConstants;
+import dev.anirban.archivio_backend.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +44,7 @@ public class SecurityConfig {
                         request
                                 .requestMatchers(HttpMethod.GET, UrlConstants.PUBLIC_ROOT).permitAll()
                                 .requestMatchers(HttpMethod.POST, UrlConstants.REGISTER_ADMIN_ENDPOINT).permitAll()
+                                .requestMatchers(HttpMethod.POST, UrlConstants.REGISTER_LIBRARIAN_ENDPOINT).hasAuthority(Role.ADMIN.toString())
                                 .requestMatchers(HttpMethod.POST, UrlConstants.LOGIN_ENDPOINT).permitAll()
 
                                 .requestMatchers(HttpMethod.GET, UrlConstants.PRIVATE_ROOT).authenticated()

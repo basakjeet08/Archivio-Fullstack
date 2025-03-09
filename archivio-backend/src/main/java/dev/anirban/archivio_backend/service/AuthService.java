@@ -3,6 +3,7 @@ package dev.anirban.archivio_backend.service;
 import dev.anirban.archivio_backend.dto.request.AuthRequest;
 import dev.anirban.archivio_backend.dto.response.UserDto;
 import dev.anirban.archivio_backend.entity.Admin;
+import dev.anirban.archivio_backend.entity.Librarian;
 import dev.anirban.archivio_backend.exception.UserNotFound;
 import dev.anirban.archivio_backend.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +20,18 @@ public class AuthService {
 
     // This is user service which contains user specific business logic
     private final AdminService adminService;
+    private final LibrarianService librarianService;
     private final JwtService jwtService;
     private final AuthenticationManager authManager;
-
 
     // This function registers an admin
     public Admin registerAdmin(AuthRequest authRequest) {
         return adminService.create(authRequest);
+    }
+
+    // This function registers a librarian
+    public Librarian registerLibrarian(AuthRequest authRequest) {
+        return librarianService.create(authRequest);
     }
 
     // This function generates the token wrapper for the user
@@ -36,23 +42,42 @@ public class AuthService {
         return new String[]{token, refreshToken};
     }
 
+    // This function returns the user details object after searching for all the services
+    private UserDetails getUserDetails(String email) {
+        return adminService
+                .findByEmail(email)
+                .map(UserDetails.class::cast)
+                .or(() -> librarianService.findByEmail(email))
+                .orElseThrow(() -> new UserNotFound(email));
+    }
+
+    // This function returns the user dto after searching all the services
+    private UserDto getUserDto(String email) {
+        return adminService
+                .findByEmail(email)
+                .map(Admin::toUserDto)
+                .or(() -> librarianService.findByEmail(email).map(Librarian::toUserDto))
+                .orElseThrow(() -> new UserNotFound(email));
+    }
+
     // This function logs in the user and returns the tokens for his subsequent requests
     public UserDto loginUser(AuthRequest authRequest) {
-        authManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authRequest.getEmail(),
+                        authRequest.getPassword()
+                )
+        );
 
-        Admin admin = adminService
-                .findByEmail(authRequest.getEmail())
-                .orElseThrow(() -> new UserNotFound(authRequest.getEmail()));
+        // Fetching the user Details Object and creating the token wrapper and user Dto
+        UserDetails userDetails = getUserDetails(authRequest.getEmail());
+        String[] tokens = generateTokenWrapper(userDetails);
+        UserDto user = getUserDto(authRequest.getEmail());
 
-        String[] tokens = generateTokenWrapper(admin);
+        // Setting the token in the user dto
+        user.setToken(tokens[0]);
+        user.setRefreshToken(tokens[1]);
 
-        return UserDto
-                .builder()
-                .name(admin.getName())
-                .email(admin.getEmail())
-                .role(admin.getRole().toString())
-                .token(tokens[0])
-                .refreshToken(tokens[1])
-                .build();
+        return user;
     }
 }
