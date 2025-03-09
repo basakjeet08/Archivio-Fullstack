@@ -4,6 +4,7 @@ import dev.anirban.archivio_backend.dto.request.AuthRequest;
 import dev.anirban.archivio_backend.dto.response.UserDto;
 import dev.anirban.archivio_backend.entity.Admin;
 import dev.anirban.archivio_backend.entity.Librarian;
+import dev.anirban.archivio_backend.exception.EmailAlreadyExists;
 import dev.anirban.archivio_backend.exception.UserNotFound;
 import dev.anirban.archivio_backend.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +25,26 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authManager;
 
+    // This function checks if the given email is already present in the Admin or Librarian or Member Database
+    public boolean emailAlreadyExists(String email) {
+        return adminService.findByEmail(email).isPresent() || librarianService.findByEmail(email).isPresent();
+    }
+
     // This function registers an admin
     public Admin registerAdmin(AuthRequest authRequest) {
+        if (emailAlreadyExists(authRequest.getEmail())) {
+            throw new EmailAlreadyExists(authRequest.getEmail());
+        }
+
         return adminService.create(authRequest);
     }
 
     // This function registers a librarian
     public Librarian registerLibrarian(AuthRequest authRequest) {
+        if (emailAlreadyExists(authRequest.getEmail())) {
+            throw new EmailAlreadyExists(authRequest.getEmail());
+        }
+
         return librarianService.create(authRequest);
     }
 
