@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +12,18 @@ export class HeaderComponent {
   @Input('title') title: string = '';
 
   // Injecting the necessary dependencies
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   // This function is invoked when the user clicks the logout button
   onLogoutClick() {
+    // Clearing out the cache of the current user data
+    this.authService.logout();
+
+    // Redirecting back to the auth routes
     this.router.navigate(['../', 'auth'], { relativeTo: this.route });
   }
 }
