@@ -17,11 +17,11 @@ public class AuthController {
     // This is the auth service which acts as a business logic layer for this controller
     private final AuthService service;
 
-    // This function handles any register user request and returns the new registered user object
-    @PostMapping(UrlConstants.REGISTER_ENDPOINT)
-    public ResponseWrapper<UserDto> handleRegistration(@RequestBody AuthRequest authRequest) {
-        UserDto user = service.registerUser(authRequest).toUserDto();
-        return new ResponseWrapper<>("User Created Successfully", user);
+    // This function handles any register admin request and returns the admin created
+    @PostMapping(UrlConstants.REGISTER_ADMIN_ENDPOINT)
+    public ResponseWrapper<UserDto> handleAdminRegistration(@RequestBody AuthRequest authRequest) {
+        UserDto admin = service.registerAdmin(authRequest).toUserDto();
+        return new ResponseWrapper<>("Admin Created Successfully", admin);
     }
 
     // This function handles the login requests and returns the tokens

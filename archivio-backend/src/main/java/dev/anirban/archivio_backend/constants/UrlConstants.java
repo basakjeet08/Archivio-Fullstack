@@ -8,6 +8,6 @@ public class UrlConstants {
     public static final String PRIVATE_ROOT = "/private-root";
 
     // Auth Endpoints
-    public static final String REGISTER_ENDPOINT = "/register";
+    public static final String REGISTER_ADMIN_ENDPOINT = "register/admin";
     public static final String LOGIN_ENDPOINT = "/login";
 }

@@ -1,7 +1,10 @@
 package dev.anirban.archivio_backend.entity;
 
 import dev.anirban.archivio_backend.dto.response.UserDto;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,8 +21,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "User_DB")
-public class User implements UserDetails {
+@Table(name = "Admin_DB")
+public class Admin implements UserDetails {
 
     @Id
     @UuidGenerator
@@ -35,8 +38,7 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role")
-    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private Role role;
 
     public UserDto toUserDto() {
