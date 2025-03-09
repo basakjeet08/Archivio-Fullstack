@@ -4,6 +4,12 @@ import dev.anirban.archivio_backend.dto.response.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,7 +19,7 @@ import org.hibernate.annotations.UuidGenerator;
 @AllArgsConstructor
 @Entity
 @Table(name = "User_DB")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @UuidGenerator
@@ -40,5 +46,15 @@ public class User {
                 .email(email)
                 .role(role.toString())
                 .build();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.toString()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 }

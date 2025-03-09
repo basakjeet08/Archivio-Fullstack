@@ -23,4 +23,11 @@ public class AuthController {
         UserDto user = service.registerUser(authRequest).toUserDto();
         return new ResponseWrapper<>("User Created Successfully", user);
     }
+
+    // This function handles the login requests and returns the tokens
+    @PostMapping(UrlConstants.LOGIN_ENDPOINT)
+    public ResponseWrapper<UserDto> handleLoginRequest(@RequestBody AuthRequest authRequest) {
+        UserDto userDto = service.loginUser(authRequest);
+        return new ResponseWrapper<>("User Logged in Successfully !!", userDto);
+    }
 }
