@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LibrarianAddComponent {
   // These are the details inputted by the user
-  userInput = { username: '', password: '' };
+  userInput = { email: '', password: '' };
 
   // Injecting the necessary dependencies
   constructor(private router: Router, private route: ActivatedRoute) {}

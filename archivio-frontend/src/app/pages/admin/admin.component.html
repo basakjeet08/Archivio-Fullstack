@@ -2,16 +2,24 @@
 <app-header [title]="'Admin'">
   <!-- Link to the librarian list Page -->
   <li>
-    <a routerLink="librarian-list" routerLinkActive="active">
+    <button
+      routerLink="librarian-list"
+      routerLinkActive="active"
+      class="navigation-btn"
+    >
       Librarian List Page
-    </a>
+    </button>
   </li>
 
   <!-- Link to the add a librarian page -->
   <li>
-    <a routerLink="librarian-add" routerLinkActive="active">
+    <button
+      routerLink="librarian-add"
+      routerLinkActive="active"
+      class="navigation-btn"
+    >
       Add a Librarian Page
-    </a>
+    </button>
   </li>
 </app-header>
 

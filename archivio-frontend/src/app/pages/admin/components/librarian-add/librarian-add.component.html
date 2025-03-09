@@ -6,20 +6,21 @@
 >
   <h3>Add a Librarian</h3>
 
-  <!-- Username input container -->
+  <!-- Email input container -->
   <div class="col-container">
     <input
       type="text"
       name="username"
-      placeholder="Set a Username"
+      placeholder="Set a Email"
       required
-      [(ngModel)]="userInput.username"
-      #username="ngModel"
+      email
+      [(ngModel)]="userInput.email"
+      #email="ngModel"
     />
 
-    <!-- Error text for user name input -->
-    <p class="error-text" *ngIf="!username.valid && username.touched">
-      Please enter a Username
+    <!-- Error text for Email input -->
+    <p class="error-text" *ngIf="!email.valid && email.touched">
+      Please enter a valid Email
     </p>
   </div>
 
