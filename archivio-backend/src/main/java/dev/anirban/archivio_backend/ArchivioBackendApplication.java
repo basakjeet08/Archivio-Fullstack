@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ArchivioBackendApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(ArchivioBackendApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(ArchivioBackendApplication.class, args);
+    }
 }
