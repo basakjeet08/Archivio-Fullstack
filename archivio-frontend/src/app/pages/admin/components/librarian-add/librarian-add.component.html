@@ -16,11 +16,28 @@
 >
   <h3>Add a Librarian</h3>
 
+  <!-- Name input container -->
+  <div class="col-container">
+    <input
+      type="text"
+      name="name"
+      placeholder="Set a Fullname"
+      required
+      [(ngModel)]="userInput.name"
+      #name="ngModel"
+    />
+
+    <!-- Error text for Name input -->
+    <p class="error-text" *ngIf="!name.valid && name.touched">
+      Please enter a Name
+    </p>
+  </div>
+
   <!-- Email input container -->
   <div class="col-container">
     <input
       type="text"
-      name="username"
+      name="email"
       placeholder="Set a Email"
       required
       email

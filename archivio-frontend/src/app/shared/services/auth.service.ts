@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthInterface } from './interfaces/AuthInterface';
 import { catchError, map, Observable, tap } from 'rxjs';
@@ -37,7 +37,11 @@ export class AuthService implements AuthInterface {
     password: string;
   }): Observable<User> {
     return this.http
-      .post<ResponseWrapper<User>>(`${this.URL}/register/librarian`, user)
+      .post<ResponseWrapper<User>>(`${this.URL}/register/librarian`, user, {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.getLoggedInUser()?.token}`,
+        }),
+      })
       .pipe(
         map((response: ResponseWrapper<User>) => response.data),
         catchError(this.errorHandler.handleApiError)

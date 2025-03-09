@@ -13,7 +13,7 @@ export class ErrorHandlerService implements ApiErrorHandler {
     // Checking if the error is a client side error or a server side
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Client Error: ${error.error.message}`;
-    } else if (typeof error.error.message === 'string') {
+    } else if (typeof error.error?.message === 'string') {
       errorMessage = `Server Error: ${error.error.message}`;
     } else if (typeof error.error === 'string') {
       errorMessage = `Server Error : ${error.error}`;
