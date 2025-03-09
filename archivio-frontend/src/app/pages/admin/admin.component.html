@@ -1,1 +1,23 @@
-<p>admin works!</p>
+<!-- This is the navigation header -->
+<app-header>
+  <!-- Link to the librarian list Page -->
+  <li>
+    <a routerLink="librarian-list" routerLinkActive="active">
+      Librarian List Page
+    </a>
+  </li>
+
+  <!-- Link to the add a librarian page -->
+  <li>
+    <a routerLink="librarian-add" routerLinkActive="active">
+      Add a Librarian Page
+    </a>
+  </li>
+</app-header>
+
+<!-- This is the main content  -->
+<main>
+  <div id="center-container">
+    <router-outlet />
+  </div>
+</main>
