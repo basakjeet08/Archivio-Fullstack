@@ -1,0 +1,79 @@
+<form
+  class="card-container col-container p-40 g-24"
+  #formContainer="ngForm"
+  (ngSubmit)="onRegisterClick()"
+>
+  <h3>Register as Member</h3>
+
+  <div class="col-container">
+    <!-- This is the user name input component container -->
+    <div class="row-container">
+      <input
+        type="text"
+        name="firstname"
+        placeholder="Enter Firstname"
+        required
+        [(ngModel)]="userInput.firstname"
+        #firstname="ngModel"
+      />
+
+      <input
+        type="text"
+        name="lastname"
+        placeholder="Enter Lastname"
+        [(ngModel)]="userInput.lastname"
+      />
+    </div>
+
+    <!-- Error text for user name input -->
+    <p class="error-text" *ngIf="!firstname.valid && firstname.touched">
+      Please enter the firstname
+    </p>
+  </div>
+
+  <!-- Username input container -->
+  <div class="col-container">
+    <input
+      type="text"
+      name="username"
+      placeholder="Enter Username"
+      required
+      [(ngModel)]="userInput.username"
+      #username="ngModel"
+    />
+
+    <!-- Error text for user name input -->
+    <p class="error-text" *ngIf="!username.valid && username.touched">
+      Please enter the Username
+    </p>
+  </div>
+
+  <!-- Password Container -->
+  <div class="col-container">
+    <input
+      type="password"
+      name="password"
+      placeholder="Enter Password"
+      required
+      minlength="5"
+      [(ngModel)]="userInput.password"
+      #password="ngModel"
+    />
+
+    <!-- Error text for user name input -->
+    <p class="error-text" *ngIf="!password.valid && password.touched">
+      Please enter the Password of length < 5
+    </p>
+  </div>
+
+  <!-- Container for the buttons -->
+  <div class="row-container">
+    <button type="submit" [disabled]="!formContainer.valid">
+      Register User
+    </button>
+
+    <button type="button" class="secondary-btn" (click)="onGoToLoginClick()">
+      Go to Login Page
+    </button>
+  </div>
+</form>
