@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LibrarianListComponent } from './components/librarian-list/librarian-list.component';
 import { LibrarianAddComponent } from './components/librarian-add/librarian-add.component';
+import { FormsModule } from '@angular/forms';
 
 // These are the routes for this module
 const route: Routes = [
@@ -21,6 +22,11 @@ const route: Routes = [
 
 @NgModule({
   declarations: [AdminComponent, LibrarianListComponent, LibrarianAddComponent],
-  imports: [CommonModule, RouterModule.forChild(route), SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(route),
+    SharedModule,
+    FormsModule,
+  ],
 })
 export class AdminModule {}

@@ -1,1 +1,53 @@
-<p>librarian-add works!</p>
+<!-- This is the form container -->
+<form
+  class="card-container col-container p-40 g-24"
+  #formContainer="ngForm"
+  (ngSubmit)="onSubmitClick()"
+>
+  <h3>Add a Librarian</h3>
+
+  <!-- Username input container -->
+  <div class="col-container">
+    <input
+      type="text"
+      name="username"
+      placeholder="Set a Username"
+      required
+      [(ngModel)]="userInput.username"
+      #username="ngModel"
+    />
+
+    <!-- Error text for user name input -->
+    <p class="error-text" *ngIf="!username.valid && username.touched">
+      Please enter a Username
+    </p>
+  </div>
+
+  <!-- Password Container -->
+  <div class="col-container">
+    <input
+      type="password"
+      name="password"
+      placeholder="Set a Password"
+      required
+      [(ngModel)]="userInput.password"
+      #password="ngModel"
+    />
+
+    <!-- Error text for user name input -->
+    <p class="error-text" *ngIf="!password.valid && password.touched">
+      Please enter a Password
+    </p>
+  </div>
+
+  <!-- Container for the buttons -->
+  <div class="row-container">
+    <button type="submit" [disabled]="!formContainer.valid">
+      Add Librarian
+    </button>
+
+    <button type="button" class="destructive-btn" (click)="onCancelClick()">
+      Cancel & Go Back
+    </button>
+  </div>
+</form>
