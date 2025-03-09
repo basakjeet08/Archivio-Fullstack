@@ -5,3 +5,14 @@
 .g-24 {
   gap: 24px;
 }
+
+.w-full {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+.flex {
+  flex: 1;
+}

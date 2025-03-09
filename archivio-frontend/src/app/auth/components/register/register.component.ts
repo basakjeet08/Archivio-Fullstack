@@ -8,7 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RegisterComponent {
   // These are the details inputted by the user
-  userInput = { firstname: '', lastname: '', username: '', password: '' };
+  userInput = { firstname: '', lastname: '', email: '', password: '' };
+
+  // Error and loading states
+  isLoading: boolean = false;
+  errorMessage: string | null = null;
 
   // Injecting the necessary dependencies
   constructor(private router: Router, private route: ActivatedRoute) {}
@@ -21,5 +25,10 @@ export class RegisterComponent {
   // This function is invoked when the user clicks on the go to login button
   onGoToLoginClick() {
     this.router.navigate(['../', 'login'], { relativeTo: this.route });
+  }
+
+  // This function is invoked when the user clicks on the cancel error button
+  onErrorCancelClick() {
+    this.errorMessage = null;
   }
 }

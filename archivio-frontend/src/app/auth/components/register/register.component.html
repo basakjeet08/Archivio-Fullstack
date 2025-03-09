@@ -1,4 +1,15 @@
+<!-- Loading State -->
+<app-loader [isLoading]="isLoading" />
+
+<!-- Error State -->
+<app-error-card
+  [errorMessage]="errorMessage"
+  (onCancelClick)="onErrorCancelClick()"
+/>
+
+<!-- Idle State -->
 <form
+  *ngIf="!isLoading && !errorMessage"
   class="card-container col-container p-40 g-24"
   #formContainer="ngForm"
   (ngSubmit)="onRegisterClick()"
@@ -31,20 +42,21 @@
     </p>
   </div>
 
-  <!-- Username input container -->
+  <!-- Email input container -->
   <div class="col-container">
     <input
-      type="text"
-      name="username"
-      placeholder="Enter Username"
+      type="email"
+      name="email"
+      placeholder="Enter Email"
       required
-      [(ngModel)]="userInput.username"
-      #username="ngModel"
+      email
+      [(ngModel)]="userInput.email"
+      #email="ngModel"
     />
 
-    <!-- Error text for user name input -->
-    <p class="error-text" *ngIf="!username.valid && username.touched">
-      Please enter the Username
+    <!-- Error text for Email input -->
+    <p class="error-text" *ngIf="!email.valid && email.touched">
+      Please enter the Email
     </p>
   </div>
 
@@ -67,12 +79,16 @@
   </div>
 
   <!-- Container for the buttons -->
-  <div class="row-container">
-    <button type="submit" [disabled]="!formContainer.valid">
+  <div class="row-container w-full">
+    <button class="flex" type="submit" [disabled]="!formContainer.valid">
       Register User
     </button>
 
-    <button type="button" class="secondary-btn" (click)="onGoToLoginClick()">
+    <button
+      type="button"
+      class="destructive-btn flex"
+      (click)="onGoToLoginClick()"
+    >
       Go to Login Page
     </button>
   </div>
