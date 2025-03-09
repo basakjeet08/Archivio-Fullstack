@@ -44,9 +44,9 @@ public class SecurityConfig {
                         request
                                 .requestMatchers(HttpMethod.GET, UrlConstants.PUBLIC_ROOT).permitAll()
                                 .requestMatchers(HttpMethod.POST, UrlConstants.REGISTER_ADMIN_ENDPOINT).permitAll()
+                                .requestMatchers(HttpMethod.POST, UrlConstants.REGISTER_MEMBER_ENDPOINT).permitAll()
                                 .requestMatchers(HttpMethod.POST, UrlConstants.REGISTER_LIBRARIAN_ENDPOINT).hasAuthority(Role.ADMIN.toString())
                                 .requestMatchers(HttpMethod.POST, UrlConstants.LOGIN_ENDPOINT).permitAll()
-
                                 .requestMatchers(HttpMethod.GET, UrlConstants.PRIVATE_ROOT).authenticated()
                                 .anyRequest().authenticated()
                 )

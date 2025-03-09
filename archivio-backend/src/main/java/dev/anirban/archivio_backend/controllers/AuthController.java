@@ -31,6 +31,13 @@ public class AuthController {
         return new ResponseWrapper<>("Librarian Created Successfully", librarian);
     }
 
+    // This function handles any register member request and returns the member details
+    @PostMapping(UrlConstants.REGISTER_MEMBER_ENDPOINT)
+    public ResponseWrapper<UserDto> handleMemberRegistration(@RequestBody AuthRequest authRequest) {
+        UserDto member = service.registerMember(authRequest).toUserDto();
+        return new ResponseWrapper<>("Member Created Successfully !!", member);
+    }
+
     // This function handles the login requests and returns the tokens
     @PostMapping(UrlConstants.LOGIN_ENDPOINT)
     public ResponseWrapper<UserDto> handleLoginRequest(@RequestBody AuthRequest authRequest) {

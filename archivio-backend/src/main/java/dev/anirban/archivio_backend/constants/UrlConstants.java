@@ -10,5 +10,6 @@ public class UrlConstants {
     // Auth Endpoints
     public static final String REGISTER_ADMIN_ENDPOINT = "register/admin";
     public static final String REGISTER_LIBRARIAN_ENDPOINT = "register/librarian";
+    public static final String REGISTER_MEMBER_ENDPOINT = "register/member";
     public static final String LOGIN_ENDPOINT = "/login";
 }
