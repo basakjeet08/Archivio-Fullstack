@@ -29,7 +29,9 @@ public class AuthService {
 
     // This function checks if the given email is already present in the Admin or Librarian or Member Database
     public boolean emailAlreadyExists(String email) {
-        return adminService.findByEmail(email).isPresent() || librarianService.findByEmail(email).isPresent();
+        return adminService.findByEmail(email).isPresent() ||
+                librarianService.findByEmail(email).isPresent() ||
+                memberService.findByEmail(email).isPresent();
     }
 
     // This function registers an admin
