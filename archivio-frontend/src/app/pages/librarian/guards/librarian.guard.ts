@@ -9,7 +9,7 @@ export const librarianGuard: CanActivateFn = (_route, _state) => {
   const router: Router = inject(Router);
 
   // Checking if the current user is Librarian or not
-  if (authService.getUserRole() === Roles.LIBRARIAN) {
+  if (authService.getUser()?.role === Roles.LIBRARIAN) {
     return true;
   } else {
     router.navigate(['/auth']);

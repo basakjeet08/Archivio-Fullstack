@@ -9,7 +9,7 @@ export const memberGuard: CanActivateFn = (_route, _state) => {
   const router: Router = inject(Router);
 
   // Checking if the current user is Member or not
-  if (authService.getUserRole() === Roles.MEMBER) {
+  if (authService.getUser()?.role === Roles.MEMBER) {
     return true;
   } else {
     router.navigate(['/auth']);

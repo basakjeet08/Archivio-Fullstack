@@ -1,8 +1,15 @@
-import { Roles } from '../../Models/Roles';
 import { User } from './../../Models/User';
 import { Observable } from 'rxjs';
 
 export interface AuthInterface {
+  getUser(): User | undefined;
+
+  getUserFromLocal(): User | undefined;
+
+  getUserSubject(): Observable<User | undefined>;
+
+  setUserInLocal(user: User): void;
+
   login(user: { email: string; password: string }): Observable<User>;
 
   registerLibrarian(user: {
@@ -16,12 +23,6 @@ export interface AuthInterface {
     email: string;
     password: string;
   }): Observable<User>;
-
-  storeLoggedInUser(user: User): void;
-
-  getLoggedInUser(): User | undefined;
-
-  getUserRole(): Roles | undefined;
 
   logout(): void;
 }

@@ -19,7 +19,13 @@ export class BookService implements BookInterface {
     private errorHandler: ErrorHandlerService,
     authService: AuthService
   ) {
-    this.token = authService.getLoggedInUser()?.token || 'Invalid Token';
+    // Storing the token in the variable
+    this.token = authService.getUser()?.token || 'Invalid Token';
+
+    // Subscribing to the user changes
+    authService.getUserSubject().subscribe({
+      next: (user) => (this.token = user?.token || 'Invalid Token'),
+    });
   }
 
   // This function creates the headers required
