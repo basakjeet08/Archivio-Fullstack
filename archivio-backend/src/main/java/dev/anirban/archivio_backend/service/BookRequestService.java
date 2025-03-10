@@ -1,6 +1,6 @@
 package dev.anirban.archivio_backend.service;
 
-import dev.anirban.archivio_backend.dto.request.BookRequestDto;
+import dev.anirban.archivio_backend.dto.request.IssueRequest;
 import dev.anirban.archivio_backend.entity.Book;
 import dev.anirban.archivio_backend.entity.BookRequest;
 import dev.anirban.archivio_backend.entity.Librarian;
@@ -27,9 +27,9 @@ public class BookRequestService {
     private final LibrarianService librarianService;
 
     // This function creates a book request by the member
-    public BookRequest create(BookRequestDto bookRequestDto, UserDetails userDetails) {
+    public BookRequest create(IssueRequest issueRequest, UserDetails userDetails) {
         // Fetching the book details
-        Book book = bookService.findById(bookRequestDto.getBookId());
+        Book book = bookService.findById(issueRequest.getBookId());
 
         // If the book is already borrowed then we throw the error
         if (!book.getIsAvailable())
@@ -62,14 +62,14 @@ public class BookRequestService {
     }
 
     // This function approves the given book request
-    public BookRequest approveRequest(BookRequestDto bookRequestDto, UserDetails userDetails) {
+    public BookRequest approveRequest(IssueRequest issueRequest, UserDetails userDetails) {
         // Librarian Data
         Librarian librarian = librarianService
                 .findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new UserNotFound(userDetails.getUsername()));
 
         // This is the book request object
-        BookRequest bookRequest = findById(bookRequestDto.getId());
+        BookRequest bookRequest = findById(issueRequest.getId());
 
         // If the book request if not at requested state
         if (bookRequest.getStatus() != BookRequest.Status.REQUESTED)
@@ -83,14 +83,14 @@ public class BookRequestService {
     }
 
     // This function returns the book by the member
-    public BookRequest returnBook(BookRequestDto bookRequestDto, UserDetails userDetails) {
+    public BookRequest returnBook(IssueRequest issueRequest, UserDetails userDetails) {
         // Member Details
         Member member = memberService
                 .findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new UserNotFound(userDetails.getUsername()));
 
         // Book Request Data
-        BookRequest bookRequest = findById(bookRequestDto.getBookId());
+        BookRequest bookRequest = findById(issueRequest.getBookId());
 
         // If the book request is not at approved state then we throw the error
         if (bookRequest.getStatus() != BookRequest.Status.APPROVED)

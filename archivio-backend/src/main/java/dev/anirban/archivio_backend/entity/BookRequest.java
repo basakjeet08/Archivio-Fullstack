@@ -1,5 +1,6 @@
 package dev.anirban.archivio_backend.entity;
 
+import dev.anirban.archivio_backend.dto.response.BookRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
@@ -58,4 +59,18 @@ public class BookRequest {
     )
     @JoinColumn(name = "approved_by_id")
     private Librarian approvedBy;
+
+    public BookRequestDto toBookRequestDto() {
+        return BookRequestDto
+                .builder()
+                .id(id)
+                .requestedDate(requestedDate)
+                .approvedDate(approvedDate)
+                .returnDate(returnDate)
+                .status(status)
+                .book(book)
+                .requester(requester != null ? requester.toUserDto() : null)
+                .approvedBy(approvedBy != null ? approvedBy.toUserDto() : null)
+                .build();
+    }
 }
