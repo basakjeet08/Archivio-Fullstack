@@ -18,4 +18,11 @@ public class UrlConstants {
     public static final String LIBRARIAN_FETCH_BY_ID = "/librarian/{id}";
     public static final String LIBRARIAN_UPDATE = "/librarian";
     public static final String LIBRARIAN_DELETE = "/librarian/{id}";
+
+    // Book Endpoints
+    public static final String BOOK_CREATE = "/book";
+    public static final String BOOK_FETCH_ALL = "/book";
+    public static final String BOOK_FETCH_BY_ID = "/book/{id}";
+    public static final String BOOK_UPDATE = "/book";
+    public static final String BOOK_DELETE_BY_ID = "/book/{id}";
 }

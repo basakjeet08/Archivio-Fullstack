@@ -25,4 +25,24 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(response);
     }
+
+    // Handling User not found Exception
+    @ExceptionHandler(UserNotFound.class)
+    public ResponseEntity<ResponseWrapper<Void>> handleUserNotFoundException(UserNotFound exception) {
+        ResponseWrapper<Void> response = new ResponseWrapper<>(exception.getMessage(), null);
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(response);
+    }
+
+    // Handling Book not found exception
+    @ExceptionHandler(BookNotFound.class)
+    public ResponseEntity<ResponseWrapper<Void>> handleBookNotFoundException(BookNotFound exception) {
+        ResponseWrapper<Void> response = new ResponseWrapper<>(exception.getMessage(), null);
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(response);
+    }
 }
