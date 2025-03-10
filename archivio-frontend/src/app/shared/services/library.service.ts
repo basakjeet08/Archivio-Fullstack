@@ -22,16 +22,31 @@ export class LibraryService implements LibraryInterface {
     this.token = authService.getLoggedInUser()?.token || 'Invalid Token';
   }
 
+  // This function adds the required headers to the api calls
+  private addHeader() {
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.token}`,
+      }),
+    };
+  }
+
   // This function fetches all the librarians data
   fetchAll(): Observable<User[]> {
     return this.http
-      .get<ResponseWrapper<User[]>>(this.url, {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.token}`,
-        }),
-      })
+      .get<ResponseWrapper<User[]>>(this.url, this.addHeader())
       .pipe(
         map((response: ResponseWrapper<User[]>) => response.data),
+        catchError(this.errorHandler.handleApiError)
+      );
+  }
+
+  // This function fetches the librarian data with the given id
+  fetchById(id: string): Observable<User> {
+    return this.http
+      .get<ResponseWrapper<User>>(`${this.url}/${id}`, this.addHeader())
+      .pipe(
+        map((response: ResponseWrapper<User>) => response.data),
         catchError(this.errorHandler.handleApiError)
       );
   }
@@ -43,11 +58,7 @@ export class LibraryService implements LibraryInterface {
     password: string;
   }): Observable<User> {
     return this.http
-      .patch<ResponseWrapper<User>>(this.url, user, {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.token}`,
-        }),
-      })
+      .patch<ResponseWrapper<User>>(this.url, user, this.addHeader())
       .pipe(
         map((response: ResponseWrapper<User>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -57,11 +68,7 @@ export class LibraryService implements LibraryInterface {
   // This function deletes the librarian by the given id
   deleteById(id: string): Observable<string> {
     return this.http
-      .delete<ResponseWrapper<string>>(`${this.url}/${id}`, {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.token}`,
-        }),
-      })
+      .delete<ResponseWrapper<string>>(`${this.url}/${id}`, this.addHeader())
       .pipe(
         map((response: ResponseWrapper<string>) => response.data),
         catchError(this.errorHandler.handleApiError)

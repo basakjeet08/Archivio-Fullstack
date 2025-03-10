@@ -14,7 +14,7 @@
   #formContainer="ngForm"
   (ngSubmit)="onSubmitClick()"
 >
-  <h3>Add a Librarian</h3>
+  <h3>{{ isEditMode ? "Edit the Librarian" : "Add a Librarian" }}</h3>
 
   <!-- Name input container -->
   <div class="col-container">
@@ -41,6 +41,7 @@
       placeholder="Set a Email"
       required
       email
+      [disabled]="isEditMode"
       [(ngModel)]="userInput.email"
       #email="ngModel"
     />
@@ -71,7 +72,7 @@
   <!-- Container for the buttons -->
   <div class="row-container">
     <button type="submit" [disabled]="!formContainer.valid">
-      Add Librarian
+      {{ isEditMode ? "Edit Librarian" : "Add Librarian" }}
     </button>
 
     <button type="button" class="destructive-btn" (click)="onCancelClick()">

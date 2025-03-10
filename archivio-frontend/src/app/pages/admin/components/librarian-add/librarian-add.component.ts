@@ -1,34 +1,73 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/shared/Models/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { LibraryService } from 'src/app/shared/services/library.service';
 
 @Component({
   selector: 'app-librarian-add',
   templateUrl: './librarian-add.component.html',
   styleUrls: ['./librarian-add.component.css'],
 })
-export class LibrarianAddComponent {
+export class LibrarianAddComponent implements OnInit {
   // These are the details inputted by the user
-  userInput = { name: '', email: '', password: '' };
+  userInput = { id: '', name: '', email: '', password: '' };
 
   // These are the loading and error states
   isLoading: boolean = false;
   errorMessage: string | null = null;
+  isEditMode: boolean = false;
 
   // Injecting the necessary dependencies
   constructor(
     private authService: AuthService,
+    private libraryService: LibraryService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
+
+  // Checking if the page is in edit more or add mode
+  ngOnInit(): void {
+    this.userInput.id = this.route.snapshot.queryParams['id'] || '';
+
+    // Checking if the id is valid
+    if (this.userInput.id) {
+      // Setting the Loading State
+      this.isLoading = true;
+
+      // Calling the API
+      this.libraryService.fetchById(this.userInput.id).subscribe({
+        // Success State
+        next: (librarian: User) => {
+          this.isLoading = false;
+          this.isEditMode = true;
+
+          // Setting the default Values
+          this.userInput.name = librarian.name;
+          this.userInput.email = librarian.email;
+        },
+
+        // Error State
+        error: (error: Error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message;
+        },
+      });
+    }
+  }
 
   // This function is invoked when the user clicks the login button
   onSubmitClick() {
     // Setting the loading states
     this.isLoading = true;
 
-    // Calling the api
-    this.authService.registerLibrarian(this.userInput).subscribe({
+    // This is the api which should be called
+    const observer = !this.isEditMode
+      ? this.authService.registerLibrarian(this.userInput)
+      : this.libraryService.update(this.userInput);
+
+    // Calling the api and handling the error or loading states
+    observer.subscribe({
       // Success State
       next: () => {
         this.isLoading = false;

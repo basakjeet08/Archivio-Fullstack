@@ -4,6 +4,8 @@ import { User } from '../../Models/User';
 export interface LibraryInterface {
   fetchAll(): Observable<User[]>;
 
+  fetchById(id: string): Observable<User>;
+
   update(user: {
     name: string;
     email: string;
