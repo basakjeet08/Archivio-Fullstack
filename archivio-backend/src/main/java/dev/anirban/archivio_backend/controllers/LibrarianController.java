@@ -7,8 +7,6 @@ import dev.anirban.archivio_backend.dto.response.UserDto;
 import dev.anirban.archivio_backend.entity.Librarian;
 import dev.anirban.archivio_backend.service.LibrarianService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,13 +30,17 @@ public class LibrarianController {
         return new ResponseWrapper<>("Librarian List Fetched Successfully !!", librarianList);
     }
 
+    // This function handles the request to fetch librarian data by their id
+    @GetMapping(UrlConstants.LIBRARIAN_FETCH_BY_ID)
+    public ResponseWrapper<UserDto> handleFetchByIdRequest(@PathVariable String id) {
+        UserDto librarian = service.findById(id).toUserDto();
+        return new ResponseWrapper<>("Librarian Data Fetched Successfully !!", librarian);
+    }
+
     // This function handles the librarian update request
     @PatchMapping(UrlConstants.LIBRARIAN_UPDATE)
-    public ResponseWrapper<UserDto> handleUpdateRequest(
-            @RequestBody AuthRequest authRequest,
-            @AuthenticationPrincipal UserDetails userDetails
-    ) {
-        UserDto librarian = service.update(authRequest, userDetails).toUserDto();
+    public ResponseWrapper<UserDto> handleUpdateRequest(@RequestBody AuthRequest authRequest) {
+        UserDto librarian = service.update(authRequest).toUserDto();
         return new ResponseWrapper<>("Librarian Updated Successfully !!", librarian);
     }
 

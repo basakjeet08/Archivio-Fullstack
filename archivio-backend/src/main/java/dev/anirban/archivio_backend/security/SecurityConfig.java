@@ -56,7 +56,8 @@ public class SecurityConfig {
 
                                 // Librarian Endpoints
                                 .requestMatchers(HttpMethod.GET, UrlConstants.LIBRARIAN_FETCH_ALL).hasAuthority(Role.ADMIN.toString())
-                                .requestMatchers(HttpMethod.PATCH, UrlConstants.LIBRARIAN_UPDATE).hasAnyAuthority(Role.ADMIN.toString(), Role.LIBRARIAN.toString())
+                                .requestMatchers(HttpMethod.GET, UrlConstants.LIBRARIAN_FETCH_BY_ID).hasAuthority(Role.ADMIN.toString())
+                                .requestMatchers(HttpMethod.PATCH, UrlConstants.LIBRARIAN_UPDATE).hasAuthority(Role.ADMIN.toString())
                                 .requestMatchers(HttpMethod.DELETE, UrlConstants.LIBRARIAN_DELETE).hasAuthority(Role.ADMIN.toString())
                                 .anyRequest().authenticated()
                 )
@@ -71,7 +72,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
