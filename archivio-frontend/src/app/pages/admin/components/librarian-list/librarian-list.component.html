@@ -2,7 +2,10 @@
 <app-loader [isLoading]="isLoading" />
 
 <!-- Error State -->
-<app-error-card [errorMessage]="errorMessage" />
+<app-error-card
+  [errorMessage]="errorMessage"
+  (onCancelClick)="onErrorCancelClick()"
+/>
 
 <!-- Idle State or loaded state -->
 <div class="col-container primary" *ngIf="!isLoading && !errorMessage">

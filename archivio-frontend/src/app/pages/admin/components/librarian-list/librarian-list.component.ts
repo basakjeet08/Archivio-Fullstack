@@ -39,6 +39,10 @@ export class LibrarianListComponent implements OnInit {
       next: (librarianList: User[]) => {
         this.isLoading = false;
         this.librarianList = librarianList;
+
+        if (this.librarianList.length === 0) {
+          this.errorMessage = 'No Librarian Data in the Database !!';
+        }
       },
 
       // Error State
@@ -76,5 +80,10 @@ export class LibrarianListComponent implements OnInit {
         this.errorMessage = error.message;
       },
     });
+  }
+
+  // This function is invoked when the user clicks on the Cancel button for errors
+  onErrorCancelClick() {
+    this.errorMessage = null;
   }
 }
