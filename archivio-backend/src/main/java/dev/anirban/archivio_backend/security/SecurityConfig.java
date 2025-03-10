@@ -42,12 +42,22 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(request ->
                         request
+                                // public Root Route
                                 .requestMatchers(HttpMethod.GET, UrlConstants.PUBLIC_ROOT).permitAll()
+
+                                // Authentication and login Endpoints
                                 .requestMatchers(HttpMethod.POST, UrlConstants.REGISTER_ADMIN_ENDPOINT).permitAll()
                                 .requestMatchers(HttpMethod.POST, UrlConstants.REGISTER_MEMBER_ENDPOINT).permitAll()
                                 .requestMatchers(HttpMethod.POST, UrlConstants.REGISTER_LIBRARIAN_ENDPOINT).hasAuthority(Role.ADMIN.toString())
                                 .requestMatchers(HttpMethod.POST, UrlConstants.LOGIN_ENDPOINT).permitAll()
+
+                                // Private Root route
                                 .requestMatchers(HttpMethod.GET, UrlConstants.PRIVATE_ROOT).authenticated()
+
+                                // Librarian Endpoints
+                                .requestMatchers(HttpMethod.GET, UrlConstants.LIBRARIAN_FETCH_ALL).hasAuthority(Role.ADMIN.toString())
+                                .requestMatchers(HttpMethod.PATCH, UrlConstants.LIBRARIAN_UPDATE).hasAnyAuthority(Role.ADMIN.toString(), Role.LIBRARIAN.toString())
+                                .requestMatchers(HttpMethod.DELETE, UrlConstants.LIBRARIAN_DELETE).hasAuthority(Role.ADMIN.toString())
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

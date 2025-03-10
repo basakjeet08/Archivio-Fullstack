@@ -15,4 +15,14 @@ public class GlobalExceptionHandler {
         ResponseWrapper<String> response = new ResponseWrapper<>(exception.getMessage(), null);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    // Handling unauthorized api calls exception. Occurs when the user doesn't have the permission for the api call
+    @ExceptionHandler(UnAuthorizedRequest.class)
+    public ResponseEntity<ResponseWrapper<String>> handleUnAuthorizedException(UnAuthorizedRequest exception) {
+        ResponseWrapper<String> response = new ResponseWrapper<>(exception.getMessage(), null);
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(response);
+    }
 }

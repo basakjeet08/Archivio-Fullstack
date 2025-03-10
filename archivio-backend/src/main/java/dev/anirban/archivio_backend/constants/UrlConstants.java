@@ -12,4 +12,9 @@ public class UrlConstants {
     public static final String REGISTER_LIBRARIAN_ENDPOINT = "register/librarian";
     public static final String REGISTER_MEMBER_ENDPOINT = "register/member";
     public static final String LOGIN_ENDPOINT = "/login";
+
+    // Librarian Endpoints
+    public static final String LIBRARIAN_FETCH_ALL = "/librarian";
+    public static final String LIBRARIAN_UPDATE = "/librarian";
+    public static final String LIBRARIAN_DELETE = "/librarian/{id}";
 }
