@@ -45,12 +45,22 @@ export class BookService implements BookInterface {
 
   // This function fetches all the books from the database
   findAllBooks(): Observable<Book[]> {
-    throw new Error('Method not implemented.');
+    return this.http
+      .get<ResponseWrapper<Book[]>>(this.url, this.getHeaders())
+      .pipe(
+        map((response: ResponseWrapper<Book[]>) => response.data),
+        catchError(this.errorHandler.handleApiError)
+      );
   }
 
   // This function fetches the book with the given id
   findBookById(id: string): Observable<Book> {
-    throw new Error('Method not implemented.');
+    return this.http
+      .get<ResponseWrapper<Book>>(`${this.url}/${id}`, this.getHeaders())
+      .pipe(
+        map((response: ResponseWrapper<Book>) => response.data),
+        catchError(this.errorHandler.handleApiError)
+      );
   }
 
   // This function updates the given book in the database
@@ -60,11 +70,21 @@ export class BookService implements BookInterface {
     genre: string;
     description: string;
   }): Observable<Book> {
-    throw new Error('Method not implemented.');
+    return this.http
+      .patch<ResponseWrapper<Book>>(this.url, book, this.getHeaders())
+      .pipe(
+        map((response: ResponseWrapper<Book>) => response.data),
+        catchError(this.errorHandler.handleApiError)
+      );
   }
 
   // This function deletes the given book from the database
   deleteById(id: string): Observable<string> {
-    throw new Error('Method not implemented.');
+    return this.http
+      .delete<ResponseWrapper<string>>(`${this.url}/${id}`, this.getHeaders())
+      .pipe(
+        map((response: ResponseWrapper<string>) => response.data),
+        catchError(this.errorHandler.handleApiError)
+      );
   }
 }
