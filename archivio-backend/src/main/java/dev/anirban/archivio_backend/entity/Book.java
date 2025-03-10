@@ -21,14 +21,17 @@ public class Book {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "title" , nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description" , nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "genre" , nullable = false)
+    @Column(name = "genre", nullable = false)
     private String genre;
+
+    @Column(name = "is_available", nullable = false)
+    private Boolean isAvailable;
 
     @Column(name = "created_at")
     private Timestamp createdAt;

@@ -67,6 +67,12 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, UrlConstants.BOOK_UPDATE).hasAuthority(Role.LIBRARIAN.toString())
                                 .requestMatchers(HttpMethod.DELETE, UrlConstants.BOOK_DELETE_BY_ID).hasAuthority(Role.LIBRARIAN.toString())
 
+                                // Book Request Endpoints
+                                .requestMatchers(HttpMethod.POST, UrlConstants.BOOK_REQUEST_REQUESTED).hasAuthority(Role.MEMBER.toString())
+                                .requestMatchers(HttpMethod.PATCH, UrlConstants.BOOK_REQUEST_APPROVE).hasAuthority(Role.LIBRARIAN.toString())
+                                .requestMatchers(HttpMethod.PATCH, UrlConstants.BOOK_REQUEST_RETURN).hasAuthority(Role.MEMBER.toString())
+                                .requestMatchers(HttpMethod.GET, UrlConstants.BOOK_REQUEST_FETCH_BY_ID).hasAnyAuthority(Role.LIBRARIAN.toString(), Role.MEMBER.toString())
+
                                 // For any other or all requests
                                 .anyRequest().authenticated()
                 )

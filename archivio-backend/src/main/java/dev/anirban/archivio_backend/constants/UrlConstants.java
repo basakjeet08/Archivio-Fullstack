@@ -25,4 +25,10 @@ public class UrlConstants {
     public static final String BOOK_FETCH_BY_ID = "/book/{id}";
     public static final String BOOK_UPDATE = "/book";
     public static final String BOOK_DELETE_BY_ID = "/book/{id}";
+
+    // Book Request Endpoints
+    public static final String BOOK_REQUEST_REQUESTED = "/book/request/requested";
+    public static final String BOOK_REQUEST_APPROVE = "/book/request/approve";
+    public static final String BOOK_REQUEST_RETURN = "/book/return";
+    public static final String BOOK_REQUEST_FETCH_BY_ID = "/book/request/{id}";
 }

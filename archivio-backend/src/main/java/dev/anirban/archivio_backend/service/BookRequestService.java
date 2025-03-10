@@ -1,0 +1,110 @@
+package dev.anirban.archivio_backend.service;
+
+import dev.anirban.archivio_backend.dto.request.BookRequestDto;
+import dev.anirban.archivio_backend.entity.Book;
+import dev.anirban.archivio_backend.entity.BookRequest;
+import dev.anirban.archivio_backend.entity.Librarian;
+import dev.anirban.archivio_backend.entity.Member;
+import dev.anirban.archivio_backend.exception.BookNotFound;
+import dev.anirban.archivio_backend.exception.UnAuthorizedRequest;
+import dev.anirban.archivio_backend.exception.UserNotFound;
+import dev.anirban.archivio_backend.repo.BookRequestRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+@Service
+@RequiredArgsConstructor
+public class BookRequestService {
+
+    // Injecting the dependencies for book, member and librarian
+    private final BookRequestRepository bookRequestRepo;
+    private final BookService bookService;
+    private final MemberService memberService;
+    private final LibrarianService librarianService;
+
+    // This function creates a book request by the member
+    public BookRequest create(BookRequestDto bookRequestDto, UserDetails userDetails) {
+        // Fetching the book details
+        Book book = bookService.findById(bookRequestDto.getBookId());
+
+        // If the book is already borrowed then we throw the error
+        if (!book.getIsAvailable())
+            throw new UnAuthorizedRequest();
+
+        book.setIsAvailable(false);
+
+        // Fetching the member details
+        Member member = memberService
+                .findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UserNotFound(userDetails.getUsername()));
+
+        // Creating the book request object
+        BookRequest bookRequest = BookRequest
+                .builder()
+                .requestedDate(Timestamp.valueOf(LocalDateTime.now()))
+                .status(BookRequest.Status.REQUESTED)
+                .book(book)
+                .requester(member)
+                .build();
+
+        return bookRequestRepo.save(bookRequest);
+    }
+
+    // This function returns the book request with the given id
+    public BookRequest findById(String id) {
+        return bookRequestRepo
+                .findById(id)
+                .orElseThrow(() -> new BookNotFound(id));
+    }
+
+    // This function approves the given book request
+    public BookRequest approveRequest(BookRequestDto bookRequestDto, UserDetails userDetails) {
+        // Librarian Data
+        Librarian librarian = librarianService
+                .findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UserNotFound(userDetails.getUsername()));
+
+        // This is the book request object
+        BookRequest bookRequest = findById(bookRequestDto.getId());
+
+        // If the book request if not at requested state
+        if (bookRequest.getStatus() != BookRequest.Status.REQUESTED)
+            throw new UnAuthorizedRequest();
+
+        // Updating the necessary data
+        bookRequest.setApprovedBy(librarian);
+        bookRequest.setApprovedDate(Timestamp.valueOf(LocalDateTime.now()));
+        bookRequest.setStatus(BookRequest.Status.APPROVED);
+        return bookRequestRepo.save(bookRequest);
+    }
+
+    // This function returns the book by the member
+    public BookRequest returnBook(BookRequestDto bookRequestDto, UserDetails userDetails) {
+        // Member Details
+        Member member = memberService
+                .findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UserNotFound(userDetails.getUsername()));
+
+        // Book Request Data
+        BookRequest bookRequest = findById(bookRequestDto.getBookId());
+
+        // If the book request is not at approved state then we throw the error
+        if (bookRequest.getStatus() != BookRequest.Status.APPROVED)
+            throw new UnAuthorizedRequest();
+
+        // If the caller is not the same as the book requester
+        if (!member.getEmail().equals(bookRequest.getRequester().getEmail()))
+            throw new UnAuthorizedRequest();
+
+        // Updating the necessary data
+        bookRequest.setReturnDate(Timestamp.valueOf(LocalDateTime.now()));
+        bookRequest.setStatus(BookRequest.Status.RETURNED);
+        bookRequest.getBook().setIsAvailable(true);
+
+        return bookRequestRepo.save(bookRequest);
+    }
+}
