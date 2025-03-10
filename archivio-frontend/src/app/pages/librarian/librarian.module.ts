@@ -8,6 +8,7 @@ import { BookAddComponent } from './components/book-add/book-add.component';
 import { BookRequestComponent } from './components/book-request/book-request.component';
 import { MembershipRequestComponent } from './components/membership-request/membership-request.component';
 import { librarianGuard } from './guards/librarian.guard';
+import { FormsModule } from '@angular/forms';
 
 // These are the routes for this module
 const route: Routes = [
@@ -33,6 +34,11 @@ const route: Routes = [
     BookRequestComponent,
     MembershipRequestComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(route), SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(route),
+    SharedModule,
+    FormsModule,
+  ],
 })
 export class LibrarianModule {}

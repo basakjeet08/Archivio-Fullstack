@@ -1,1 +1,83 @@
-<p>book-add works!</p>
+<!-- Loading State -->
+<app-loader [isLoading]="isLoading" />
+
+<!-- Error State -->
+<app-error-card
+  [errorMessage]="errorMessage"
+  (onCancelClick)="onErrorCancelClick()"
+/>
+
+<!-- This is the form container -->
+<form
+  *ngIf="!isLoading && !errorMessage"
+  class="card-container col-container p-40 g-24"
+  #formContainer="ngForm"
+  (ngSubmit)="onSubmitClick()"
+>
+  <h3>{{ isEditMode ? "Edit the Book" : "Add a Book" }}</h3>
+
+  <!-- Title input container -->
+  <div class="col-container">
+    <input
+      type="text"
+      name="title"
+      placeholder="Set a Title"
+      required
+      [(ngModel)]="userInput.title"
+      #title="ngModel"
+    />
+
+    <!-- Error text for Title input -->
+    <p class="error-text" *ngIf="!title.valid && title.touched">
+      Please enter a Title
+    </p>
+  </div>
+
+  <!-- Genre input container -->
+  <div class="col-container">
+    <input
+      type="text"
+      name="genre"
+      placeholder="Set a Genre"
+      required
+      [(ngModel)]="userInput.genre"
+      #genre="ngModel"
+    />
+
+    <!-- Error text for Genre input -->
+    <p class="error-text" *ngIf="!genre.valid && genre.touched">
+      Please enter a valid Genre
+    </p>
+  </div>
+
+  <!-- Description Container -->
+  <div class="col-container">
+    <textarea
+      name="description"
+      placeholder="Set a Description"
+      required
+      [(ngModel)]="userInput.description"
+      #description="ngModel"
+    ></textarea>
+
+    <!-- Error text for Description input -->
+    <p class="error-text" *ngIf="!description.valid && description.touched">
+      Please enter a Description
+    </p>
+  </div>
+
+  <!-- Container for the buttons -->
+  <div class="row-container">
+    <button class="flex" type="submit" [disabled]="!formContainer.valid">
+      {{ isEditMode ? "Edit Book" : "Add Book" }}
+    </button>
+
+    <button
+      class="destructive-btn flex"
+      type="button"
+      (click)="onCancelClick()"
+    >
+      Cancel & Go Back
+    </button>
+  </div>
+</form>
