@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +53,11 @@ public class BookRequestService {
                 .build();
 
         return bookRequestRepo.save(bookRequest);
+    }
+
+    // This function returns all the book requests
+    public List<BookRequest> findAll() {
+        return bookRequestRepo.findAll();
     }
 
     // This function returns the book request with the given id

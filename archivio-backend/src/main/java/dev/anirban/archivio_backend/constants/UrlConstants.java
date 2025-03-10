@@ -30,5 +30,6 @@ public class UrlConstants {
     public static final String BOOK_REQUEST_REQUESTED = "/book/request/requested";
     public static final String BOOK_REQUEST_APPROVE = "/book/request/approve";
     public static final String BOOK_REQUEST_RETURN = "/book/request/return";
+    public static final String BOOK_REQUEST_FETCH_ALL = "/book/request";
     public static final String BOOK_REQUEST_FETCH_BY_ID = "/book/request/{id}";
 }

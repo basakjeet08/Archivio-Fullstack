@@ -4,11 +4,14 @@ import dev.anirban.archivio_backend.constants.UrlConstants;
 import dev.anirban.archivio_backend.dto.request.IssueRequest;
 import dev.anirban.archivio_backend.dto.response.BookRequestDto;
 import dev.anirban.archivio_backend.dto.response.ResponseWrapper;
+import dev.anirban.archivio_backend.entity.BookRequest;
 import dev.anirban.archivio_backend.service.BookRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +28,18 @@ public class BookRequestController {
     ) {
         BookRequestDto bookRequest = service.create(issueRequest, userDetails).toBookRequestDto();
         return new ResponseWrapper<>("Book Requested Successfully !!", bookRequest);
+    }
+
+    // This function handles the fetching of all the book requests
+    @GetMapping(UrlConstants.BOOK_REQUEST_FETCH_ALL)
+    public ResponseWrapper<List<BookRequestDto>> handleFetchAll() {
+        List<BookRequestDto> bookRequests = service
+                .findAll()
+                .stream()
+                .map(BookRequest::toBookRequestDto)
+                .toList();
+
+        return new ResponseWrapper<>("Book Requests list fetched Successfully !!", bookRequests);
     }
 
     // This function handles the fetching of the book request by the given id
