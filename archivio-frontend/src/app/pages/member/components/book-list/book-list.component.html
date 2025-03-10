@@ -1,0 +1,33 @@
+<!-- Loading State -->
+<app-loader [isLoading]="isLoading" />
+
+<!-- Error State -->
+<app-error-card
+  [errorMessage]="errorMessage"
+  (onCancelClick)="onErrorCancelClick()"
+/>
+
+<!-- Idle State or loaded state -->
+<div class="col-container primary" *ngIf="!isLoading && !errorMessage">
+  <h2>Book List</h2>
+
+  <!-- Cards for each and every Book Entry -->
+  <div class="col-container" *ngFor="let book of bookList">
+    <!-- Card Container for the Book Data -->
+    <div class="card-container col-container full-width">
+      <div class="row-container space">
+        <h3>{{ book.title + " | " + book.genre }}</h3>
+
+        <!-- Rent Button -->
+        <button class="secondary-btn" (click)="onRentClick(book.id)">
+          Rent
+        </button>
+      </div>
+
+      <p>{{ book.description }}</p>
+    </div>
+
+    <!-- Horizontal Line -->
+    <hr class="center" />
+  </div>
+</div>
