@@ -7,6 +7,8 @@ export interface BookRequestInterface {
     bookId: string;
   }): Observable<BookRequest>;
 
+  findAll(): Observable<BookRequest[]>;
+
   findById(id: string): Observable<BookRequest>;
 
   approveBookRequest(bookRequest: {

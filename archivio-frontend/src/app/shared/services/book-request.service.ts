@@ -52,6 +52,16 @@ export class BookRequestService implements BookRequestInterface {
       );
   }
 
+  // This function fetches all the book requests created
+  findAll(): Observable<BookRequest[]> {
+    return this.http
+      .get<ResponseWrapper<BookRequest[]>>(this.url, this.getHeaders())
+      .pipe(
+        map((response: ResponseWrapper<BookRequest[]>) => response.data),
+        catchError(this.errorHandler.handleApiError)
+      );
+  }
+
   // This function fetches the book request according to the given id
   findById(id: string): Observable<BookRequest> {
     return this.http

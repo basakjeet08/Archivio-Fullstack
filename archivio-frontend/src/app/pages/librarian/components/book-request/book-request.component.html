@@ -1,1 +1,46 @@
-<p>book-request works!</p>
+<!-- Loading State -->
+<app-loader [isLoading]="isLoading" />
+
+<!-- Error State -->
+<app-error-card
+  [errorMessage]="errorMessage"
+  (onCancelClick)="onErrorCancelClick()"
+/>
+
+<!-- Idle State or loaded state -->
+<div class="col-container primary" *ngIf="!isLoading && !errorMessage">
+  <h2>Book Request List</h2>
+
+  <!-- Cards for each and every Book Request Entry -->
+  <div class="col-container" *ngFor="let request of bookRequests">
+    <!-- Card Container for the Request Data -->
+    <div class="card-container col-container full-width">
+      <div class="row-container space">
+        <h3>{{ request.requester.name }}</h3>
+
+        <!-- Button Container -->
+        <div class="row-container">
+          <button
+            class="secondary-btn"
+            (click)="onApproveClick(request.id)"
+            [disabled]="request.status !== 'REQUESTED'"
+          >
+            {{ request.status === "REQUESTED" ? "Approve" : "Approved" }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Book Title -->
+      <p>
+        The requested book is
+        <span class="highlight">{{ request.book.title }}</span>
+      </p>
+
+      <!-- Book Description -->
+      <p>The Description of the Book : {{ request.book.description }}</p>
+    </div>
+
+    <!-- Horizontal Line -->
+    <hr class="center" />
+  </div>
+</div>
