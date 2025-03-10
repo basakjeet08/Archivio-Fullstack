@@ -1,1 +1,36 @@
-<p>librarian-list works!</p>
+<!-- Loading State -->
+<app-loader [isLoading]="isLoading" />
+
+<!-- Error State -->
+<app-error-card [errorMessage]="errorMessage" />
+
+<!-- Idle State or loaded state -->
+<div class="col-container primary" *ngIf="!isLoading && !errorMessage">
+  <h2>Librarian List</h2>
+
+  <!-- Cards for each and every librarian Entry -->
+  <div class="col-container" *ngFor="let librarian of librarianList">
+    <!-- Card Container for the Librarian Data -->
+    <div class="card-container col-container full-width">
+      <div class="row-container space">
+        <h3>{{ librarian.name }}</h3>
+
+        <!-- Button Container -->
+        <div class="row-container">
+          <button class="secondary-btn" (click)="onEditClick(librarian.id)">
+            Edit
+          </button>
+
+          <button class="destructive-btn" (click)="onDeleteClick(librarian.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <p>{{ librarian.email }}</p>
+    </div>
+
+    <!-- Horizontal Line -->
+    <hr class="center" />
+  </div>
+</div>
