@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/shared/Models/Book';
+import { BookRequestService } from 'src/app/shared/services/book-request.service';
 import { BookService } from 'src/app/shared/services/book.service';
 
 @Component({
@@ -16,7 +17,10 @@ export class BookListComponent implements OnInit {
   errorMessage: string | null = null;
 
   // Injecting the required dependencies
-  constructor(private bookService: BookService) {}
+  constructor(
+    private bookService: BookService,
+    private bookRequestService: BookRequestService
+  ) {}
 
   // Initializing the data when the components loads
   ngOnInit(): void {
@@ -50,7 +54,25 @@ export class BookListComponent implements OnInit {
 
   // This function is invoked when the user clicks on the rent button
   onRentClick(id: string) {
-    console.log(id);
+    // Setting the loading state
+    this.isLoading = true;
+
+    // Calling the Api
+    this.bookRequestService
+      .createBookRequest({ id: '', bookId: id })
+      .subscribe({
+        // Success State
+        next: () => {
+          this.isLoading = false;
+          this.fetchData();
+        },
+
+        // Error State
+        error: (error: Error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message;
+        },
+      });
   }
 
   // This function is invoked when the user clicks on the Cancel button for errors

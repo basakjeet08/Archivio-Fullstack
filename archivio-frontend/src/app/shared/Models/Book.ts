@@ -3,6 +3,7 @@ export class Book {
     readonly id: string,
     readonly title: string,
     readonly genre: string,
-    readonly description: string
+    readonly description: string,
+    readonly isAvailable: boolean
   ) {}
 }

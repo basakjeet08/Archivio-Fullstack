@@ -19,8 +19,12 @@
         <h3>{{ book.title + " | " + book.genre }}</h3>
 
         <!-- Rent Button -->
-        <button class="secondary-btn" (click)="onRentClick(book.id)">
-          Rent
+        <button
+          class="secondary-btn"
+          [disabled]="!book.isAvailable"
+          (click)="onRentClick(book.id)"
+        >
+          {{ book.isAvailable ? "Rent Book" : "Not Available" }}
         </button>
       </div>
 
