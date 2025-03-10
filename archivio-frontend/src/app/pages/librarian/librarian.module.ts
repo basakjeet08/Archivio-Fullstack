@@ -7,12 +7,14 @@ import { BookListComponent } from './components/book-list/book-list.component';
 import { BookAddComponent } from './components/book-add/book-add.component';
 import { BookRequestComponent } from './components/book-request/book-request.component';
 import { MembershipRequestComponent } from './components/membership-request/membership-request.component';
+import { librarianGuard } from './guards/librarian.guard';
 
 // These are the routes for this module
 const route: Routes = [
   {
     path: '',
     component: LibrarianComponent,
+    canActivate: [librarianGuard],
     children: [
       { path: '', redirectTo: 'book-list', pathMatch: 'full' },
       { path: 'book-list', component: BookListComponent },

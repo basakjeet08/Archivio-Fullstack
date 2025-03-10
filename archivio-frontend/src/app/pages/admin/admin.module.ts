@@ -6,12 +6,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LibrarianListComponent } from './components/librarian-list/librarian-list.component';
 import { LibrarianAddComponent } from './components/librarian-add/librarian-add.component';
 import { FormsModule } from '@angular/forms';
+import { adminGuard } from './guards/admin.guard';
 
 // These are the routes for this module
 const route: Routes = [
   {
     path: '',
     component: AdminComponent,
+    canActivate: [adminGuard],
     children: [
       { path: '', redirectTo: 'librarian-list', pathMatch: 'full' },
       { path: 'librarian-list', component: LibrarianListComponent },
