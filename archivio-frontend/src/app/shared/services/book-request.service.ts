@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerService } from './error-handler.service';
 import { catchError, map, Observable } from 'rxjs';
-import { BookRequest } from '../Models/BookRequest';
+import { BookRequest, Status } from '../Models/BookRequest';
 import { ResponseWrapper } from '../Models/ResponseWrapper';
 import { AuthService } from './auth.service';
 import { BookRequestInterface } from './interfaces/BookRequestInterface';
@@ -56,6 +56,32 @@ export class BookRequestService implements BookRequestInterface {
   findAll(): Observable<BookRequest[]> {
     return this.http
       .get<ResponseWrapper<BookRequest[]>>(this.url, this.getHeaders())
+      .pipe(
+        map((response: ResponseWrapper<BookRequest[]>) => response.data),
+        catchError(this.errorHandler.handleApiError)
+      );
+  }
+
+  // This function fetches the book requests of the current logged in user
+  findByRequesterEmail(): Observable<BookRequest[]> {
+    return this.http
+      .get<ResponseWrapper<BookRequest[]>>(
+        `${this.url}/requester`,
+        this.getHeaders()
+      )
+      .pipe(
+        map((response: ResponseWrapper<BookRequest[]>) => response.data),
+        catchError(this.errorHandler.handleApiError)
+      );
+  }
+
+  // This function fetches the book requests of the current logged in user and the book request status wanted
+  findByRequesterEmailAndStatus(status: Status): Observable<BookRequest[]> {
+    return this.http
+      .get<ResponseWrapper<BookRequest[]>>(
+        `${this.url}/requester?status=${status}`,
+        this.getHeaders()
+      )
       .pipe(
         map((response: ResponseWrapper<BookRequest[]>) => response.data),
         catchError(this.errorHandler.handleApiError)

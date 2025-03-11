@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { BookRequest } from '../../Models/BookRequest';
+import { BookRequest, Status } from '../../Models/BookRequest';
 
 export interface BookRequestInterface {
   createBookRequest(bookRequest: {
@@ -8,6 +8,10 @@ export interface BookRequestInterface {
   }): Observable<BookRequest>;
 
   findAll(): Observable<BookRequest[]>;
+
+  findByRequesterEmail(): Observable<BookRequest[]>;
+
+  findByRequesterEmailAndStatus(status: Status): Observable<BookRequest[]>;
 
   findById(id: string): Observable<BookRequest>;
 
