@@ -1,5 +1,38 @@
 <!-- This is the navigation header -->
-<app-header [title]="'Member'"> </app-header>
+<app-header [title]="'Member'">
+  <!-- Link to the Book list Page -->
+  <li>
+    <button
+      routerLink="book-list"
+      routerLinkActive="active"
+      class="navigation-btn"
+    >
+      Book List
+    </button>
+  </li>
+
+  <!-- Link to the requested books page -->
+  <li>
+    <button
+      routerLink="requested-books"
+      routerLinkActive="active"
+      class="navigation-btn"
+    >
+      Requested Books
+    </button>
+  </li>
+
+  <!-- Link to the current requests books page -->
+  <li>
+    <button
+      routerLink="current-requests"
+      routerLinkActive="active"
+      class="navigation-btn"
+    >
+      Current Requested
+    </button>
+  </li>
+</app-header>
 
 <!-- This is the main content  -->
 <main>
