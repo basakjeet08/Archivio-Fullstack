@@ -1,0 +1,29 @@
+:host {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px;
+  gap: 16px;
+}
+
+.primary {
+  height: 100%;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.space {
+  justify-content: space-between;
+}
+
+.center {
+  align-self: center;
+}
