@@ -1,0 +1,50 @@
+<!-- Grid Container for the whole Layout when the data is fetched -->
+<div class="grid-container">
+  <!-- Main Analytics and Statistics Card Container-->
+  <div class="card-container col-container grid-span-6">
+    <h3>Member Dashboard . . .</h3>
+
+    <p>Not Yet Designed</p>
+  </div>
+
+  <!-- Card container to view Book List Component -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onBookListClick()"
+  >
+    <h3>View Books Stored . . .</h3>
+
+    <p>
+      Click me to head to the <span class="highlight">book list page</span>,
+      where you can see the details of all the books listed and stored.
+    </p>
+  </div>
+
+  <!-- Card Container to Book request history of the user -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onRequestedBooksClick()"
+  >
+    <h3>Book Request History . . .</h3>
+
+    <p>
+      Click me to head to the
+      <span class="highlight">requested books page</span>, where you can check
+      what books have you requested all this time.
+    </p>
+  </div>
+
+  <!-- Card Container to return books which are currently in his possession -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onReturnBooksClick()"
+  >
+    <h3>Return Books . . .</h3>
+
+    <p>
+      Click me to head to the
+      <span class="highlight">to be returned books page</span>, where you can
+      return books which are currently in your possession.
+    </p>
+  </div>
+</div>

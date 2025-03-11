@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/shared/Models/Book';
 import { BookRequestService } from 'src/app/shared/services/book-request.service';
@@ -19,7 +20,8 @@ export class BookListComponent implements OnInit {
   // Injecting the required dependencies
   constructor(
     private bookService: BookService,
-    private bookRequestService: BookRequestService
+    private bookRequestService: BookRequestService,
+    private location: Location
   ) {}
 
   // Initializing the data when the components loads
@@ -73,6 +75,11 @@ export class BookListComponent implements OnInit {
           this.errorMessage = error.message;
         },
       });
+  }
+
+  // This function is clicked when the user clicks on the go back button
+  onBackButtonClick() {
+    this.location.back();
   }
 
   // This function is invoked when the user clicks on the Cancel button for errors

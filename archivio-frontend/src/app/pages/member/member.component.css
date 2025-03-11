@@ -9,16 +9,6 @@
   flex-direction: column;
 }
 
-.navigation-btn {
-  background-color: transparent;
-  border: 1px solid var(--card--variant--color);
-}
-
-.navigation-btn:hover,
-.active {
-  background-color: var(--card--variant--color);
-}
-
 main {
   flex: 1;
 

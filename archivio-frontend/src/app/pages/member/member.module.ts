@@ -7,6 +7,7 @@ import { BookListComponent } from './components/book-list/book-list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RequestedBooksComponent } from './components/requested-books/requested-books.component';
 import { ToBeReturnedComponent } from './components/to-be-returned/to-be-returned.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 // These are the routes for this module
 const route: Routes = [
@@ -15,7 +16,8 @@ const route: Routes = [
     component: MemberComponent,
     canActivate: [memberGuard],
     children: [
-      { path: '', redirectTo: 'book-list', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'book-list', component: BookListComponent },
       { path: 'requested-books', component: RequestedBooksComponent },
       { path: 'to-be-returned', component: ToBeReturnedComponent },
@@ -29,6 +31,7 @@ const route: Routes = [
     BookListComponent,
     RequestedBooksComponent,
     ToBeReturnedComponent,
+    DashboardComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(route), SharedModule],
 })

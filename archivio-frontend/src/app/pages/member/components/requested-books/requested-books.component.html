@@ -9,7 +9,11 @@
 
 <!-- Idle State or loaded state -->
 <div class="col-container primary" *ngIf="!isLoading && !errorMessage">
-  <h2>To be returned Books . . .</h2>
+  <!-- This is the title and the back button -->
+  <div class="row-container space">
+    <h2>To be returned Books . . .</h2>
+    <button (click)="onBackButtonClick()">Go Back</button>
+  </div>
 
   <!-- Cards for each and every Book Request Entry -->
   <div class="col-container" *ngFor="let request of bookRequests">
