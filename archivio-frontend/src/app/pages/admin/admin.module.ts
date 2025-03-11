@@ -7,6 +7,7 @@ import { LibrarianListComponent } from './components/librarian-list/librarian-li
 import { LibrarianAddComponent } from './components/librarian-add/librarian-add.component';
 import { FormsModule } from '@angular/forms';
 import { adminGuard } from './guards/admin.guard';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 // These are the routes for this module
 const route: Routes = [
@@ -15,7 +16,8 @@ const route: Routes = [
     component: AdminComponent,
     canActivate: [adminGuard],
     children: [
-      { path: '', redirectTo: 'librarian-list', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'librarian-list', component: LibrarianListComponent },
       { path: 'librarian-add', component: LibrarianAddComponent },
     ],
@@ -23,7 +25,12 @@ const route: Routes = [
 ];
 
 @NgModule({
-  declarations: [AdminComponent, LibrarianListComponent, LibrarianAddComponent],
+  declarations: [
+    AdminComponent,
+    LibrarianListComponent,
+    LibrarianAddComponent,
+    DashboardComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(route),

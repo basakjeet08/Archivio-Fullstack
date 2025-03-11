@@ -1,5 +1,6 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/shared/Models/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { LibraryService } from 'src/app/shared/services/library.service';
@@ -22,8 +23,8 @@ export class LibrarianAddComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private libraryService: LibraryService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   // Checking if the page is in edit more or add mode
@@ -72,10 +73,8 @@ export class LibrarianAddComponent implements OnInit {
       next: () => {
         this.isLoading = false;
 
-        // Redirecting the admin to the list page
-        this.router.navigate(['../', 'librarian-list'], {
-          relativeTo: this.route,
-        });
+        // Redirecting the previous screen
+        this.location.back();
       },
 
       // Error State
@@ -88,7 +87,7 @@ export class LibrarianAddComponent implements OnInit {
 
   // This function is invoked when the user clicks on the go to Register button
   onCancelClick() {
-    this.router.navigate(['../', 'librarian-list'], { relativeTo: this.route });
+    this.location.back();
   }
 
   // This function is invoked when the user clicks on the cancel error button

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/shared/Models/User';
@@ -20,7 +21,8 @@ export class LibrarianListComponent implements OnInit {
   constructor(
     private libraryService: LibraryService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   // Initializing the data when the components loads
@@ -80,6 +82,11 @@ export class LibrarianListComponent implements OnInit {
         this.errorMessage = error.message;
       },
     });
+  }
+
+  // This function is invoked when the user clicks on go back button
+  onGoBackClick() {
+    this.location.back();
   }
 
   // This function is invoked when the user clicks on the Cancel button for errors

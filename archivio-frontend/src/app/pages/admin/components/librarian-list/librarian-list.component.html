@@ -9,7 +9,12 @@
 
 <!-- Idle State or loaded state -->
 <div class="col-container primary" *ngIf="!isLoading && !errorMessage">
-  <h2>Librarian List</h2>
+  <!-- Title Container with the back button -->
+  <div class="row-container space">
+    <h2>Librarian List</h2>
+
+    <button (click)="onGoBackClick()">Go Back</button>
+  </div>
 
   <!-- Cards for each and every librarian Entry -->
   <div class="col-container" *ngFor="let librarian of librarianList">
