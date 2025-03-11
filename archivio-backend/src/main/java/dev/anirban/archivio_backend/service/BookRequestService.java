@@ -103,7 +103,7 @@ public class BookRequestService {
                 .orElseThrow(() -> new UserNotFound(userDetails.getUsername()));
 
         // Book Request Data
-        BookRequest bookRequest = findById(issueRequest.getBookId());
+        BookRequest bookRequest = findById(issueRequest.getId());
 
         // If the book request is not at approved state then we throw the error
         if (bookRequest.getStatus() != BookRequest.Status.APPROVED)
