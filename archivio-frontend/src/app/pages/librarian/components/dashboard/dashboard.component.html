@@ -1,0 +1,64 @@
+<!-- Grid Container for the whole Layout when the data is fetched -->
+<div class="grid-container">
+  <!-- Main Analytics and Statistics Card Container-->
+  <div class="card-container col-container grid-span-4">
+    <h3>Librarian Dashboard . . .</h3>
+
+    <p>Not Yet Designed</p>
+  </div>
+
+  <!-- Card container to view Book List Component -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onBookListClick()"
+  >
+    <h3>View Books Stored . . .</h3>
+
+    <p>
+      Click me to head to the <span class="highlight">book list page</span>,
+      where you can see the details of all the books listed and stored.
+    </p>
+  </div>
+
+  <!-- Card Container to add a Book Container -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onAddBookClick()"
+  >
+    <h3>Add a Book . . .</h3>
+
+    <p>
+      Click me to head to the
+      <span class="highlight">add new book page</span>, where you can add new
+      books to the database.
+    </p>
+  </div>
+
+  <!-- Card Container to book requests page Container -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onBookRequestsClick()"
+  >
+    <h3>Book Requests . . .</h3>
+
+    <p>
+      Click me to head to the
+      <span class="highlight">book requests page</span>, where you can approve
+      or reject the current open book requests.
+    </p>
+  </div>
+
+  <!-- Card Container to Membership page Container -->
+  <div
+    class="card-container col-container card-hover"
+    (click)="onMembershipClick()"
+  >
+    <h3>Membership requests . . .</h3>
+
+    <p>
+      Click me to head to the
+      <span class="highlight">membership request page</span>, where you can
+      check the new member requests.
+    </p>
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { BookRequestComponent } from './components/book-request/book-request.com
 import { MembershipRequestComponent } from './components/membership-request/membership-request.component';
 import { librarianGuard } from './guards/librarian.guard';
 import { FormsModule } from '@angular/forms';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 // These are the routes for this module
 const route: Routes = [
@@ -17,7 +18,8 @@ const route: Routes = [
     component: LibrarianComponent,
     canActivate: [librarianGuard],
     children: [
-      { path: '', redirectTo: 'book-list', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'book-list', component: BookListComponent },
       { path: 'book-add', component: BookAddComponent },
       { path: 'book-request', component: BookRequestComponent },
@@ -33,6 +35,7 @@ const route: Routes = [
     BookAddComponent,
     BookRequestComponent,
     MembershipRequestComponent,
+    DashboardComponent,
   ],
   imports: [
     CommonModule,

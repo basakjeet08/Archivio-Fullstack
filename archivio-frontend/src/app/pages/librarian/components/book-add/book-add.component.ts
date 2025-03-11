@@ -1,5 +1,6 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/shared/Models/Book';
 import { BookService } from 'src/app/shared/services/book.service';
 
@@ -20,8 +21,8 @@ export class BookAddComponent implements OnInit {
   // Injecting the necessary dependencies
   constructor(
     private bookService: BookService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   // Checking if the page is in edit mode or add mode
@@ -71,8 +72,8 @@ export class BookAddComponent implements OnInit {
       next: () => {
         this.isLoading = false;
 
-        // Redirecting to the book list page
-        this.router.navigate(['../', 'book-list'], { relativeTo: this.route });
+        // Redirecting to the previous page
+        this.location.back();
       },
 
       // Error State
@@ -83,9 +84,9 @@ export class BookAddComponent implements OnInit {
     });
   }
 
-  // This function is invoked when the user clicks on the go to Register button
+  // This function is invoked when the user clicks on cancel button
   onCancelClick() {
-    this.router.navigate(['../', 'book-list'], { relativeTo: this.route });
+    this.location.back();
   }
 
   // This function is invoked when the user clicks on the cancel error button

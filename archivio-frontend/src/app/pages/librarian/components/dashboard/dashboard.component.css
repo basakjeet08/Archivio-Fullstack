@@ -1,0 +1,32 @@
+:host {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-container {
+  width: 80%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+
+  gap: 24px;
+}
+
+.grid-span-4 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.card-hover:hover {
+  cursor: pointer;
+  background-color: var(--card--variant--color);
+}
+
+.highlight {
+  color: var(--primary--color);
+}
