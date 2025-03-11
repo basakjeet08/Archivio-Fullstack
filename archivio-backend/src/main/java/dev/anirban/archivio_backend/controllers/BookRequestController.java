@@ -49,6 +49,21 @@ public class BookRequestController {
         return new ResponseWrapper<>("Book Fetched Successfully !!", bookRequest);
     }
 
+    // This function handles the fetching of the book requests using the requester id and the status (optional) of the book request
+    @GetMapping(UrlConstants.BOOK_REQUEST_FETCH_BY_REQUESTER_AND_STATUS)
+    public ResponseWrapper<List<BookRequestDto>> handleFetchByRequesterIdAndStatus(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(value = "status", required = false) BookRequest.Status status
+    ) {
+        List<BookRequestDto> bookRequestDtoList = service
+                .findByRequesterIdAndStatus(userDetails, status)
+                .stream()
+                .map(BookRequest::toBookRequestDto)
+                .toList();
+
+        return new ResponseWrapper<>("Book Request fetched Successfully !!", bookRequestDtoList);
+    }
+
     // This function handles the requests to approve a book request
     @PatchMapping(UrlConstants.BOOK_REQUEST_APPROVE)
     public ResponseWrapper<BookRequestDto> handleApproveBookRequest(

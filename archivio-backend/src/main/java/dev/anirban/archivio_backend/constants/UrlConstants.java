@@ -32,4 +32,5 @@ public class UrlConstants {
     public static final String BOOK_REQUEST_RETURN = "/book/request/return";
     public static final String BOOK_REQUEST_FETCH_ALL = "/book/request";
     public static final String BOOK_REQUEST_FETCH_BY_ID = "/book/request/{id}";
+    public static final String BOOK_REQUEST_FETCH_BY_REQUESTER_AND_STATUS = "/book/request/requester";
 }

@@ -67,6 +67,13 @@ public class BookRequestService {
                 .orElseThrow(() -> new BookNotFound(id));
     }
 
+    // This function fetches the books request by their requester id and status (optionally)
+    public List<BookRequest> findByRequesterIdAndStatus(UserDetails userDetails, BookRequest.Status status) {
+        return (status == null)
+                ? bookRequestRepo.findByRequester_Email(userDetails.getUsername())
+                : bookRequestRepo.findByRequester_EmailAndStatus(userDetails.getUsername(), status);
+    }
+
     // This function approves the given book request
     public BookRequest approveRequest(IssueRequest issueRequest, UserDetails userDetails) {
         // Librarian Data
