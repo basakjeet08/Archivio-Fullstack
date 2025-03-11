@@ -26,8 +26,8 @@ main {
   justify-content: center;
 }
 
-#center-container {
-  width: 50vw;
+.outer-container {
+  width: 100%;
 
   display: flex;
   justify-content: center;
