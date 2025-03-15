@@ -3,8 +3,6 @@ package dev.anirban.archivio_backend.dto.response.stats;
 
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Builder
@@ -12,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 public class MemberStats {
     private Integer totalMembers;
-    private List<String> mostFrequentMembers;
+    private String mostFrequentMember;
 }

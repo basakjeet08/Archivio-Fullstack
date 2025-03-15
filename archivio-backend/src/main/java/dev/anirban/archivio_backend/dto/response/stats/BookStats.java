@@ -2,8 +2,6 @@ package dev.anirban.archivio_backend.dto.response.stats;
 
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Builder
@@ -11,5 +9,5 @@ import java.util.List;
 @AllArgsConstructor
 public class BookStats {
     private Integer totalBooks;
-    private List<String> mostRequestedBooks;
+    private String mostRequestedBook;
 }

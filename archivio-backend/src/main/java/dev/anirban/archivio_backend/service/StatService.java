@@ -5,6 +5,7 @@ import dev.anirban.archivio_backend.dto.response.stats.MemberStats;
 import dev.anirban.archivio_backend.dto.response.stats.StatsDto;
 import dev.anirban.archivio_backend.entity.Book;
 import dev.anirban.archivio_backend.entity.Member;
+import dev.anirban.archivio_backend.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,17 +32,18 @@ public class StatService {
 
         // Generating the total number of books and the most 3 popular books
         Integer totalBooks = bookList.size();
-        List<String> bookStatList = bookList
+        String mostRequestedBook = bookList
                 .stream()
-                .limit(3)
-                .map(book -> book.getTitle() + " | " + book.getGenre())
-                .toList();
+                .limit(1)
+                .map(Book::getTitle)
+                .toList()
+                .getFirst();
 
         // Setting the book stats to the response object
         BookStats bookStats = BookStats
                 .builder()
                 .totalBooks(totalBooks)
-                .mostRequestedBooks(bookStatList)
+                .mostRequestedBook(mostRequestedBook)
                 .build();
         statsDto.setBookStats(bookStats);
     }
@@ -54,17 +56,18 @@ public class StatService {
 
         // Generating the total members and the most frequent requesters
         Integer totalMember = memberList.size();
-        List<String> frequentMemberList = memberList
+        String mostFrequentMember = memberList
                 .stream()
                 .limit(3)
-                .map(member -> member.getName() + " has requested " + member.getBookRequestCount() + " times")
-                .toList();
+                .map(User::getName)
+                .toList()
+                .getFirst();
 
         // Setting the member stats to the response object
         MemberStats memberStats = MemberStats
                 .builder()
                 .totalMembers(totalMember)
-                .mostFrequentMembers(frequentMemberList)
+                .mostFrequentMember(mostFrequentMember)
                 .build();
         statsDto.setMemberStats(memberStats);
     }
