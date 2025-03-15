@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { scaleUpAndFadeInAnimation } from 'src/app/shared/animations/scale-up-and-fade-in';
 import { Book } from 'src/app/shared/Models/Book';
 import { BookService } from 'src/app/shared/services/book.service';
 
@@ -8,6 +9,7 @@ import { BookService } from 'src/app/shared/services/book.service';
   selector: 'app-book-add',
   templateUrl: './book-add.component.html',
   styleUrls: ['./book-add.component.css'],
+  animations: [scaleUpAndFadeInAnimation],
 })
 export class BookAddComponent implements OnInit {
   // These are the details inputted by the user

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { scaleUpAndFadeInAnimation } from 'src/app/shared/animations/scale-up-and-fade-in';
+import { slideLeftEnterAnimation } from 'src/app/shared/animations/slide-left-enter';
+import { slideUpEnterAnimation } from 'src/app/shared/animations/slide-up-enter';
 import { StatsDao } from 'src/app/shared/Models/stats/StatsDao';
 import { StatsService } from 'src/app/shared/services/stats.service';
 
@@ -7,6 +10,11 @@ import { StatsService } from 'src/app/shared/services/stats.service';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
+  animations: [
+    slideUpEnterAnimation,
+    scaleUpAndFadeInAnimation,
+    slideLeftEnterAnimation,
+  ],
 })
 export class DashboardComponent implements OnInit {
   // This is the stats data for the component

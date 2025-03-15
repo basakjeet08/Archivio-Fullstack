@@ -1,7 +1,7 @@
 <!-- Grid Container for the whole Layout when the data is fetched -->
 <div class="grid-container">
   <!-- Main Analytics and Statistics Card Container-->
-  <div class="card-container col-container grid-span-4">
+  <div class="card-container col-container grid-span-4" @scaleUpFadeAnimation>
     <!-- Title -->
     <h3>Librarian Dashboard . . .</h3>
 
@@ -46,6 +46,7 @@
   <div
     class="card-container col-container card-hover"
     (click)="onBookListClick()"
+    @slideLeftEnterAnimation
   >
     <h3>View Books Stored . . .</h3>
 
@@ -59,6 +60,7 @@
   <div
     class="card-container col-container card-hover"
     (click)="onAddBookClick()"
+    @slideLeftEnterAnimation
   >
     <h3>Add a Book . . .</h3>
 
@@ -73,6 +75,7 @@
   <div
     class="card-container col-container card-hover"
     (click)="onBookRequestsClick()"
+    @slideUpEnterAnimation
   >
     <h3>Book Requests . . .</h3>
 
@@ -87,6 +90,7 @@
   <div
     class="card-container col-container card-hover"
     (click)="onMembershipClick()"
+    @slideUpEnterAnimation
   >
     <h3>Membership requests . . .</h3>
 
