@@ -25,7 +25,7 @@ public class BookController {
     // Function which handles the request to fetch all books
     @GetMapping(UrlConstants.BOOK_FETCH_ALL)
     public ResponseWrapper<List<Book>> handleBookFindAllRequest() {
-        return new ResponseWrapper<>("Book List Fetched Successfully !!", service.findAll());
+        return new ResponseWrapper<>("Book List Fetched Successfully !!", service.findAllByOrderByTimesRequestedDesc());
     }
 
     // Function which handles the request to fetch the book by id

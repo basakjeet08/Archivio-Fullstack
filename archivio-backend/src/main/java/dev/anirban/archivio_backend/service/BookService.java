@@ -34,16 +34,16 @@ public class BookService {
         return bookRepo.save(createdBook);
     }
 
-    // This function returns all the books in the database
-    public List<Book> findAll() {
-        return bookRepo.findAll();
-    }
-
     // This function returns the book with the same id
     public Book findById(String id) {
         return bookRepo
                 .findById(id)
                 .orElseThrow(() -> new BookNotFound(id));
+    }
+
+    // This function fetches all the books sorted by the most to the least requested book
+    public List<Book> findAllByOrderByTimesRequestedDesc() {
+        return bookRepo.findAllByOrderByTimesRequestedDesc();
     }
 
     // This function updates the book in the database
