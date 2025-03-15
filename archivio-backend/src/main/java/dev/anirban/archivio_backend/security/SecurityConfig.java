@@ -75,6 +75,10 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, UrlConstants.BOOK_REQUEST_FETCH_BY_ID).hasAnyAuthority(Role.LIBRARIAN.toString(), Role.MEMBER.toString())
                                 .requestMatchers(HttpMethod.GET, UrlConstants.BOOK_REQUEST_FETCH_BY_REQUESTER_AND_STATUS).hasAnyAuthority(Role.LIBRARIAN.toString(), Role.MEMBER.toString())
 
+                                // Statistics Endpoints
+                                .requestMatchers(HttpMethod.GET, UrlConstants.MEMBER_STATS).hasAuthority(Role.MEMBER.toString())
+                                .requestMatchers(HttpMethod.GET, UrlConstants.LIBRARIAN_STATS).hasAuthority(Role.LIBRARIAN.toString())
+
                                 // For any other or all requests
                                 .anyRequest().authenticated()
                 )
