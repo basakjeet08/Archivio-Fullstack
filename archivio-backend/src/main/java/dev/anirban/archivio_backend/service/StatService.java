@@ -58,7 +58,7 @@ public class StatService {
         int totalMember = memberList.size();
         String mostFrequentMember = "None";
         if (totalMember != 0)
-            memberList
+            mostFrequentMember = memberList
                     .stream()
                     .limit(3)
                     .map(User::getName)
@@ -84,7 +84,7 @@ public class StatService {
         int totalLibrarian = librarianList.size();
         String mostActiveLibrarian = "None";
         if (totalLibrarian != 0)
-            librarianList
+            mostActiveLibrarian = librarianList
                     .stream()
                     .limit(1)
                     .map(User::getName)
