@@ -17,13 +17,26 @@
   gap: 24px;
 }
 
-.grid-span-6 {
+.grid-span-4 {
   grid-column: span 2;
-  grid-row: span 3;
+  grid-row: span 2;
+}
+
+.center {
+  align-self: center;
+  justify-self: center;
+}
+
+.wrap {
+  flex-wrap: wrap;
 }
 
 .card-hover:hover {
   cursor: pointer;
+  background-color: var(--card--variant--color);
+}
+
+.card-variant-color {
   background-color: var(--card--variant--color);
 }
 

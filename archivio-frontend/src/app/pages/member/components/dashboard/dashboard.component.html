@@ -1,10 +1,34 @@
 <!-- Grid Container for the whole Layout when the data is fetched -->
 <div class="grid-container">
   <!-- Main Analytics and Statistics Card Container-->
-  <div class="card-container col-container grid-span-6">
+  <div class="card-container col-container grid-span-4">
+    <!-- Title -->
     <h3>Member Dashboard . . .</h3>
 
-    <p>Not Yet Designed</p>
+    <!-- Loading State for the Dashboard Container -->
+    <app-loader class="center" *ngIf="isLoading" [isLoading]="isLoading" />
+
+    <!-- Error State of the Dashboard API call -->
+    <app-error-card
+      class="center"
+      *ngIf="errorMessage"
+      [errorMessage]="errorMessage"
+      (onCancelClick)="onErrorCancelClick()"
+    />
+
+    <!-- This is the dashbaord container Success State -->
+    <div class="row-container wrap" *ngIf="!isLoading && !errorMessage">
+      <!-- Total books -->
+      <p class="card-container card-variant-color">
+        Total Books : {{ statsData?.bookStats?.totalBooks }}
+      </p>
+
+      <!-- Top Borrowed Book -->
+      <div class="card-container row-container card-variant-color">
+        <h4>Top Borrowed Book :</h4>
+        <p>{{ statsData?.bookStats?.mostRequestedBook }}</p>
+      </div>
+    </div>
   </div>
 
   <!-- Card container to view Book List Component -->
@@ -33,6 +57,10 @@
       what books have you requested all this time.
     </p>
   </div>
+
+  <!-- Dummy Elements to shift the return books in the desired grid position -->
+  <div></div>
+  <div></div>
 
   <!-- Card Container to return books which are currently in his possession -->
   <div
