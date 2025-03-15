@@ -8,7 +8,11 @@
 />
 
 <!-- Idle State or loaded state -->
-<div class="col-container primary" *ngIf="!isLoading && !errorMessage">
+<div
+  class="col-container primary"
+  *ngIf="!isLoading && !errorMessage"
+  @staggeredAnimation
+>
   <!-- Container for the title and the go back button -->
   <div class="row-container space">
     <h2>Book Request List . . .</h2>

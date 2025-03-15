@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { staggerAnimation } from 'src/app/shared/animations/list-stagger';
 import { BookRequest } from 'src/app/shared/Models/BookRequest';
 import { BookRequestService } from 'src/app/shared/services/book-request.service';
 
@@ -7,6 +8,7 @@ import { BookRequestService } from 'src/app/shared/services/book-request.service
   selector: 'app-book-request',
   templateUrl: './book-request.component.html',
   styleUrls: ['./book-request.component.css'],
+  animations: [staggerAnimation],
 })
 export class BookRequestComponent implements OnInit {
   // This is the book request list variable which contains the details of all the book requests

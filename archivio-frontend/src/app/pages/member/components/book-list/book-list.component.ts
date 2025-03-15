@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { staggerAnimation } from 'src/app/shared/animations/list-stagger';
 import { Book } from 'src/app/shared/Models/Book';
 import { BookRequestService } from 'src/app/shared/services/book-request.service';
 import { BookService } from 'src/app/shared/services/book.service';
@@ -8,6 +9,7 @@ import { BookService } from 'src/app/shared/services/book.service';
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css'],
+  animations: [staggerAnimation],
 })
 export class BookListComponent implements OnInit {
   // This is the book list variable which contains the details of all the books

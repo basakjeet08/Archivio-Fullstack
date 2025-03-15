@@ -1,3 +1,4 @@
+import { staggerAnimation } from 'src/app/shared/animations/list-stagger';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +9,7 @@ import { LibraryService } from 'src/app/shared/services/library.service';
   selector: 'app-librarian-list',
   templateUrl: './librarian-list.component.html',
   styleUrls: ['./librarian-list.component.css'],
+  animations: [staggerAnimation],
 })
 export class LibrarianListComponent implements OnInit {
   // This is the librarian list variable which contains the details of all the librarians

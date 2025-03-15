@@ -8,7 +8,11 @@
 />
 
 <!-- Idle State or loaded state -->
-<div class="col-container primary" *ngIf="!isLoading && !errorMessage">
+<div
+  class="col-container primary"
+  *ngIf="!isLoading && !errorMessage"
+  @staggeredAnimation
+>
   <!-- Title Container with the back button -->
   <div class="row-container space">
     <h2>Librarian List</h2>
