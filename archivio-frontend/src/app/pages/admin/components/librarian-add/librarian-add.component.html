@@ -13,6 +13,7 @@
   class="card-container col-container p-40 g-24"
   #formContainer="ngForm"
   (ngSubmit)="onSubmitClick()"
+  @scaleUpFadeAnimation
 >
   <h3>{{ isEditMode ? "Edit the Librarian" : "Add a Librarian" }}</h3>
 

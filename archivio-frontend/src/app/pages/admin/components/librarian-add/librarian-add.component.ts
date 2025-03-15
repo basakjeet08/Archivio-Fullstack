@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { scaleUpAndFadeInAnimation } from 'src/app/shared/animations/scale-up-and-fade-in';
 import { User } from 'src/app/shared/Models/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { LibraryService } from 'src/app/shared/services/library.service';
@@ -9,6 +10,7 @@ import { LibraryService } from 'src/app/shared/services/library.service';
   selector: 'app-librarian-add',
   templateUrl: './librarian-add.component.html',
   styleUrls: ['./librarian-add.component.css'],
+  animations: [scaleUpAndFadeInAnimation],
 })
 export class LibrarianAddComponent implements OnInit {
   // These are the details inputted by the user

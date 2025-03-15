@@ -1,7 +1,10 @@
 <!-- Grid Container for the whole Layout when the data is fetched -->
 <div class="grid-container">
   <!-- Main Analytics and Statistics Card Container-->
-  <div class="card-container col-container grid-span-6">
+  <div
+    class="card-container col-container grid-span-6"
+    @slideRightEnterAnimation
+  >
     <!-- Title -->
     <h3>Admin Dashboard . . .</h3>
 
@@ -57,6 +60,7 @@
   <div
     class="card-container col-container card-hover"
     (click)="onLibrarianListClick()"
+    @slideLeftEnterAnimation
   >
     <h3>View Librarians . . .</h3>
 
@@ -70,6 +74,7 @@
   <div
     class="card-container col-container card-hover"
     (click)="onAddLibrarianClick()"
+    @slideLeftEnterAnimation
   >
     <h3>Add a Librarian . . .</h3>
 
