@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,9 +29,15 @@ public class MemberService {
                 .email(authRequest.getEmail())
                 .password(encoder.encode(authRequest.getPassword()))
                 .role(Role.MEMBER)
+                .bookRequestCount(0)
                 .build();
 
         return memberRepo.save(member);
+    }
+
+    // This function returns the users ordered by their no. of requests in descending order
+    public List<Member> findAllByOrderByBookRequestCountDesc() {
+        return memberRepo.findAllByOrderByBookRequestCountDesc();
     }
 
     // This function fetches the member data

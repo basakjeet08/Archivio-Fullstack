@@ -44,6 +44,9 @@ public class BookRequestService {
                 .findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new UserNotFound(userDetails.getUsername()));
 
+        // Updating the values in the member tables
+        member.setBookRequestCount(member.getBookRequestCount() + 1);
+
         // Creating the book request object
         BookRequest bookRequest = BookRequest
                 .builder()
