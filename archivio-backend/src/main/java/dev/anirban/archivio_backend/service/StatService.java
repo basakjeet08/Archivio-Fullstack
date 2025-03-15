@@ -1,9 +1,11 @@
 package dev.anirban.archivio_backend.service;
 
 import dev.anirban.archivio_backend.dto.response.stats.BookStats;
+import dev.anirban.archivio_backend.dto.response.stats.LibrarianStats;
 import dev.anirban.archivio_backend.dto.response.stats.MemberStats;
 import dev.anirban.archivio_backend.dto.response.stats.StatsDto;
 import dev.anirban.archivio_backend.entity.Book;
+import dev.anirban.archivio_backend.entity.Librarian;
 import dev.anirban.archivio_backend.entity.Member;
 import dev.anirban.archivio_backend.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatService {
 
-    /**
-     * Librarian Stats :-
-     * .. Total Number of Librarians
-     * .. Each Librarian Number of approves
-     * .. Each librarian number of rejects
-     */
     private final BookService bookService;
     private final MemberService memberService;
+    private final LibrarianService librarianService;
 
     // This function adds the Book Stats in the Object
     private void generateBookStats(StatsDto statsDto) {
@@ -72,6 +69,30 @@ public class StatService {
         statsDto.setMemberStats(memberStats);
     }
 
+    // This function adds the librarian stats in the Object
+    private void generateLibrarianStats(StatsDto statsDto) {
+
+        // Fetching all the librarian from the database
+        List<Librarian> librarianList = librarianService.findAllByOrderByRequestsApprovedDesc();
+
+        // Generating the total number and the most active librarian
+        Integer totalLibrarian = librarianList.size();
+        String mostActiveLibrarian = librarianList
+                .stream()
+                .limit(1)
+                .map(User::getName)
+                .toList()
+                .getFirst();
+
+        // Setting the librarian stats to the response object
+        LibrarianStats librarianStats = LibrarianStats
+                .builder()
+                .totalLibrarians(totalLibrarian)
+                .mostActiveLibrarian(mostActiveLibrarian)
+                .build();
+        statsDto.setLibrarianStats(librarianStats);
+    }
+
     // This function returns the stats for the member dashboard
     public StatsDto fetchMemberStats() {
         // Creating a new Response Object which will be passed to all the stat generation functions
@@ -91,6 +112,19 @@ public class StatService {
         // Adding the Book Stats and member stats
         generateBookStats(statsDto);
         generateMemberStats(statsDto);
+
+        return statsDto;
+    }
+
+    // This function returns the stats for the admin dashboard
+    public StatsDto fetchAdminStats() {
+        // Creating a new Response Object which will be passed to all the stat generation functions
+        StatsDto statsDto = new StatsDto();
+
+        // Adding the Book Stats , member stats and the librarian stats
+        generateBookStats(statsDto);
+        generateMemberStats(statsDto);
+        generateLibrarianStats(statsDto);
 
         return statsDto;
     }

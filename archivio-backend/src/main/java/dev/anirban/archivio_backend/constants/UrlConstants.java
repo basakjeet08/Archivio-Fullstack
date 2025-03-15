@@ -37,4 +37,5 @@ public class UrlConstants {
     // Statistics Endpoints
     public static final String MEMBER_STATS = "/stats/member";
     public static final String LIBRARIAN_STATS = "/stats/librarian";
+    public static final String ADMIN_STATS = "/stats/admin";
 }

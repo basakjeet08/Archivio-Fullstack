@@ -30,6 +30,7 @@ public class LibrarianService {
                 .email(authRequest.getEmail())
                 .password(encoder.encode(authRequest.getPassword()))
                 .role(Role.LIBRARIAN)
+                .requestsApproved(0)
                 .build();
 
         return librarianRepo.save(librarian);
@@ -50,6 +51,11 @@ public class LibrarianService {
         return librarianRepo
                 .findById(id)
                 .orElseThrow(() -> new UserNotFound(id));
+    }
+
+    // This function fetches the librarian data sorted according to their requestsApproved value
+    public List<Librarian> findAllByOrderByRequestsApprovedDesc() {
+        return librarianRepo.findAllByOrderByRequestsApprovedDesc();
     }
 
     // This function is used to update the password upon login

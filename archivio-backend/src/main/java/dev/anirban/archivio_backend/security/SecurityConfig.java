@@ -78,6 +78,7 @@ public class SecurityConfig {
                                 // Statistics Endpoints
                                 .requestMatchers(HttpMethod.GET, UrlConstants.MEMBER_STATS).hasAuthority(Role.MEMBER.toString())
                                 .requestMatchers(HttpMethod.GET, UrlConstants.LIBRARIAN_STATS).hasAuthority(Role.LIBRARIAN.toString())
+                                .requestMatchers(HttpMethod.GET, UrlConstants.ADMIN_STATS).hasAuthority(Role.ADMIN.toString())
 
                                 // For any other or all requests
                                 .anyRequest().authenticated()

@@ -27,4 +27,11 @@ public class StatsController {
         StatsDto statsDto = service.fetchMemberStats();
         return new ResponseWrapper<>("Member Statistics fetched Successfully !!", statsDto);
     }
+
+    // This function handles the stats requests from an admin
+    @GetMapping(UrlConstants.ADMIN_STATS)
+    public ResponseWrapper<StatsDto> handleAdminStatsRequest() {
+        StatsDto statsDto = service.fetchAdminStats();
+        return new ResponseWrapper<>("Admin Statistics fetched Successfully !!", statsDto);
+    }
 }

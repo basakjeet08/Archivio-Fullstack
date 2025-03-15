@@ -7,8 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StatsDto {
-    private BookStats bookStats;
-    private MemberStats memberStats;
-    private LibrarianStats librarianStats;
+public class LibrarianStats {
+    private Integer totalLibrarians;
+    private String mostActiveLibrarian;
 }

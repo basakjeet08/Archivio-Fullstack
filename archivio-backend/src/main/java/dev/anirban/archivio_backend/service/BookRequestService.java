@@ -92,6 +92,9 @@ public class BookRequestService {
         if (bookRequest.getStatus() != BookRequest.Status.REQUESTED)
             throw new UnAuthorizedRequest();
 
+        // Updating the librarian data
+        librarian.setRequestsApproved(librarian.getRequestsApproved() + 1);
+
         // Updating the necessary data
         bookRequest.setApprovedBy(librarian);
         bookRequest.setApprovedDate(Timestamp.valueOf(LocalDateTime.now()));
