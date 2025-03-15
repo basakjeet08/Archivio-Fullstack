@@ -35,6 +35,16 @@ export class StatsService implements StatsInterface {
     };
   }
 
+  // This function fetches the dashboard stats for the admins
+  fetchAdminStats(): Observable<StatsDao> {
+    return this.http
+      .get<ResponseWrapper<StatsDao>>(`${this.url}/admin`, this.getHeaders())
+      .pipe(
+        map((response) => response.data),
+        catchError(this.errorHandler.handleApiError)
+      );
+  }
+
   // This function fetches the dashboard stats for the librarians
   fetchLibrarianStats(): Observable<StatsDao> {
     return this.http
