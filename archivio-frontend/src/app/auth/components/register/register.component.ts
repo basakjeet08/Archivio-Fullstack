@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { scaleUpAndFadeInAnimation } from 'src/app/shared/animations/scale-up-and-fade-in';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
+  animations: [scaleUpAndFadeInAnimation],
 })
 export class RegisterComponent {
   // These are the details inputted by the user

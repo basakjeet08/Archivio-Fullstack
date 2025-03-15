@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { scaleUpAndFadeInAnimation } from 'src/app/shared/animations/scale-up-and-fade-in';
 import { User } from 'src/app/shared/Models/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -7,6 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  animations: [scaleUpAndFadeInAnimation],
 })
 export class LoginComponent {
   // These are the details inputted by the user
