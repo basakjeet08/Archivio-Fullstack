@@ -3,9 +3,9 @@ import { animate, style, transition, trigger } from '@angular/animations';
 // This is the animation which scales up / zooms in while having a fadding in effect
 export const scaleUpAndFadeInAnimation = trigger('scaleUpFadeAnimation', [
   transition(':enter', [
-    style({ opacity: 0, transform: 'scale(0.2)' }),
+    style({ opacity: 0, transform: 'scale(0.8)' }),
     animate(
-      '700ms ease-in-out',
+      '500ms ease-in-out',
       style({ opacity: 1, transform: 'scale(1.0)' })
     ),
   ]),
