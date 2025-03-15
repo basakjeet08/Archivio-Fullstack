@@ -33,6 +33,9 @@ public class Book {
     @Column(name = "is_available", nullable = false)
     private Boolean isAvailable;
 
+    @Column(name = "times_requested", nullable = false)
+    private Integer timesRequested;
+
     @Column(name = "created_at")
     private Timestamp createdAt;
 

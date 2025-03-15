@@ -26,6 +26,7 @@ public class BookService {
                 .description(book.getDescription())
                 .genre(book.getGenre())
                 .isAvailable(true)
+                .timesRequested(0)
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .updatedAt(Timestamp.valueOf(LocalDateTime.now()))
                 .build();

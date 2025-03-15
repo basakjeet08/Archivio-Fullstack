@@ -37,6 +37,7 @@ public class BookRequestService {
             throw new UnAuthorizedRequest();
 
         book.setIsAvailable(false);
+        book.setTimesRequested(book.getTimesRequested() + 1);
 
         // Fetching the member details
         Member member = memberService
