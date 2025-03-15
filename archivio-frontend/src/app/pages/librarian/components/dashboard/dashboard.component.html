@@ -23,6 +23,12 @@
         Total Books : {{ statsData?.bookStats?.totalBooks }}
       </p>
 
+      <!-- Top Borrowed Book -->
+      <div class="card-container row-container card-variant-color">
+        <h4>Most Borrowed Book :</h4>
+        <p>{{ statsData?.bookStats?.mostRequestedBook }}</p>
+      </div>
+
       <!-- Total Members -->
       <p class="card-container card-variant-color">
         Total Members : {{ statsData?.memberStats?.totalMembers }}
@@ -30,14 +36,8 @@
 
       <!-- Top Active Members -->
       <div class="card-container row-container card-variant-color">
-        <h4>Top 3 Members :</h4>
+        <h4>Most Active Member :</h4>
         <p>{{ statsData?.memberStats?.mostFrequentMember }}</p>
-      </div>
-
-      <!-- Top Borrowed Book -->
-      <div class="card-container row-container card-variant-color">
-        <h4>Top Borrowed Book :</h4>
-        <p>{{ statsData?.bookStats?.mostRequestedBook }}</p>
       </div>
     </div>
   </div>

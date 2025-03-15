@@ -2,9 +2,55 @@
 <div class="grid-container">
   <!-- Main Analytics and Statistics Card Container-->
   <div class="card-container col-container grid-span-6">
+    <!-- Title -->
     <h3>Admin Dashboard . . .</h3>
 
-    <p>Not Yet Designed</p>
+    <!-- Loading State for the Dashboard Container -->
+    <app-loader class="center" *ngIf="isLoading" [isLoading]="isLoading" />
+
+    <!-- Error State of the Dashboard API call -->
+    <app-error-card
+      class="center"
+      *ngIf="errorMessage"
+      [errorMessage]="errorMessage"
+      (onCancelClick)="onErrorCancelClick()"
+    />
+
+    <!-- This is the dashbaord container Success State -->
+    <div class="row-container wrap" *ngIf="!isLoading && !errorMessage">
+      <!-- Total books -->
+      <p class="card-container card-variant-color">
+        Total Books : {{ statsData?.bookStats?.totalBooks }}
+      </p>
+
+      <!-- Top Borrowed Book -->
+      <div class="card-container row-container card-variant-color">
+        <h4>Most Borrowed Book :</h4>
+        <p>{{ statsData?.bookStats?.mostRequestedBook }}</p>
+      </div>
+
+      <!-- Total Librarians -->
+      <p class="card-container card-variant-color">
+        Total Librarians : {{ statsData?.librarianStats?.totalLibrarians }}
+      </p>
+
+      <!-- Top Active Librarian -->
+      <div class="card-container row-container card-variant-color">
+        <h4>Most Active Librarian :</h4>
+        <p>{{ statsData?.librarianStats?.mostActiveLibrarian }}</p>
+      </div>
+
+      <!-- Total Members -->
+      <p class="card-container card-variant-color">
+        Total Members : {{ statsData?.memberStats?.totalMembers }}
+      </p>
+
+      <!-- Top Active Members -->
+      <div class="card-container row-container card-variant-color">
+        <h4>Most Active Members :</h4>
+        <p>{{ statsData?.memberStats?.mostFrequentMember }}</p>
+      </div>
+    </div>
   </div>
 
   <!-- Card container to view Librarians Component -->
