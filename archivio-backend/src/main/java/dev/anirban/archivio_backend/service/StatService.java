@@ -28,13 +28,16 @@ public class StatService {
         List<Book> bookList = bookService.findAllByOrderByTimesRequestedDesc();
 
         // Generating the total number of books and the most 3 popular books
-        Integer totalBooks = bookList.size();
-        String mostRequestedBook = bookList
-                .stream()
-                .limit(1)
-                .map(Book::getTitle)
-                .toList()
-                .getFirst();
+        int totalBooks = bookList.size();
+        String mostRequestedBook = "None";
+
+        if (totalBooks != 0)
+            mostRequestedBook = bookList
+                    .stream()
+                    .limit(1)
+                    .map(Book::getTitle)
+                    .toList()
+                    .getFirst();
 
         // Setting the book stats to the response object
         BookStats bookStats = BookStats
@@ -52,13 +55,15 @@ public class StatService {
         List<Member> memberList = memberService.findAllByOrderByBookRequestCountDesc();
 
         // Generating the total members and the most frequent requesters
-        Integer totalMember = memberList.size();
-        String mostFrequentMember = memberList
-                .stream()
-                .limit(3)
-                .map(User::getName)
-                .toList()
-                .getFirst();
+        int totalMember = memberList.size();
+        String mostFrequentMember = "None";
+        if (totalMember != 0)
+            memberList
+                    .stream()
+                    .limit(3)
+                    .map(User::getName)
+                    .toList()
+                    .getFirst();
 
         // Setting the member stats to the response object
         MemberStats memberStats = MemberStats
@@ -76,13 +81,15 @@ public class StatService {
         List<Librarian> librarianList = librarianService.findAllByOrderByRequestsApprovedDesc();
 
         // Generating the total number and the most active librarian
-        Integer totalLibrarian = librarianList.size();
-        String mostActiveLibrarian = librarianList
-                .stream()
-                .limit(1)
-                .map(User::getName)
-                .toList()
-                .getFirst();
+        int totalLibrarian = librarianList.size();
+        String mostActiveLibrarian = "None";
+        if (totalLibrarian != 0)
+            librarianList
+                    .stream()
+                    .limit(1)
+                    .map(User::getName)
+                    .toList()
+                    .getFirst();
 
         // Setting the librarian stats to the response object
         LibrarianStats librarianStats = LibrarianStats
