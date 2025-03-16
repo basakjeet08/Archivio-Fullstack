@@ -1,5 +1,6 @@
 package dev.anirban.archivio_backend.entity;
 
+import dev.anirban.archivio_backend.exception.UnAuthorizedRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
@@ -41,4 +42,16 @@ public class Book {
 
     @Column(name = "updated_at")
     private Timestamp updatedAt;
+
+    public void markAsBorrowed() {
+        if (!this.isAvailable)
+            throw new UnAuthorizedRequest();
+
+        this.isAvailable = false;
+        this.timesRequested++;
+    }
+
+    public void markAsReturned() {
+        this.isAvailable = true;
+    }
 }

@@ -9,6 +9,7 @@ import dev.anirban.archivio_backend.exception.BookNotFound;
 import dev.anirban.archivio_backend.exception.UnAuthorizedRequest;
 import dev.anirban.archivio_backend.exception.UserNotFound;
 import dev.anirban.archivio_backend.repo.BookRequestRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -28,16 +29,13 @@ public class BookRequestService {
     private final LibrarianService librarianService;
 
     // This function creates a book request by the member
+    @Transactional
     public BookRequest create(IssueRequest issueRequest, UserDetails userDetails) {
         // Fetching the book details
         Book book = bookService.findById(issueRequest.getBookId());
 
         // If the book is already borrowed then we throw the error
-        if (!book.getIsAvailable())
-            throw new UnAuthorizedRequest();
-
-        book.setIsAvailable(false);
-        book.setTimesRequested(book.getTimesRequested() + 1);
+        book.markAsBorrowed();
 
         // Fetching the member details
         Member member = memberService
@@ -45,7 +43,7 @@ public class BookRequestService {
                 .orElseThrow(() -> new UserNotFound(userDetails.getUsername()));
 
         // Updating the values in the member tables
-        member.setBookRequestCount(member.getBookRequestCount() + 1);
+        member.incrementRequestCount();
 
         // Creating the book request object
         BookRequest bookRequest = BookRequest
@@ -79,6 +77,7 @@ public class BookRequestService {
     }
 
     // This function approves the given book request
+    @Transactional
     public BookRequest approveRequest(IssueRequest issueRequest, UserDetails userDetails) {
         // Librarian Data
         Librarian librarian = librarianService
@@ -93,7 +92,7 @@ public class BookRequestService {
             throw new UnAuthorizedRequest();
 
         // Updating the librarian data
-        librarian.setRequestsApproved(librarian.getRequestsApproved() + 1);
+        librarian.incrementApproveCount();
 
         // Updating the necessary data
         bookRequest.setApprovedBy(librarian);
@@ -103,6 +102,7 @@ public class BookRequestService {
     }
 
     // This function returns the book by the member
+    @Transactional
     public BookRequest returnBook(IssueRequest issueRequest, UserDetails userDetails) {
         // Member Details
         Member member = memberService
@@ -123,7 +123,7 @@ public class BookRequestService {
         // Updating the necessary data
         bookRequest.setReturnDate(Timestamp.valueOf(LocalDateTime.now()));
         bookRequest.setStatus(BookRequest.Status.RETURNED);
-        bookRequest.getBook().setIsAvailable(true);
+        bookRequest.getBook().markAsReturned();
 
         return bookRequestRepo.save(bookRequest);
     }

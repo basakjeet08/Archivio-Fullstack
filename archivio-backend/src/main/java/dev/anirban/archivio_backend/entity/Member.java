@@ -21,4 +21,8 @@ public class Member extends User {
 
     @Column(name = "book_request_count", nullable = false)
     private Integer bookRequestCount;
+
+    public void incrementRequestCount() {
+        this.bookRequestCount++;
+    }
 }

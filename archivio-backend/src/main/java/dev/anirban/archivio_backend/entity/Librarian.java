@@ -21,4 +21,8 @@ import lombok.experimental.SuperBuilder;
 public class Librarian extends User {
     @Column(name = "approve_count", nullable = false)
     private Integer requestsApproved;
+
+    public void incrementApproveCount() {
+        this.requestsApproved++;
+    }
 }

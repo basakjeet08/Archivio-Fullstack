@@ -1,9 +1,7 @@
 package dev.anirban.archivio_backend.entity;
 
 import dev.anirban.archivio_backend.dto.response.UserDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.UuidGenerator;
@@ -38,6 +36,7 @@ public abstract class User implements UserDetails {
     private String password;
 
     @Column(name = "role", nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private Role role;
 
     public UserDto toUserDto() {
