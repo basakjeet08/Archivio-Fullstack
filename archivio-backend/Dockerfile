@@ -14,13 +14,13 @@ COPY build.gradle settings.gradle gradlew ./
 RUN chmod +x gradlew
 
 # Download dependencies to optimize caching
-RUN chmod +x gradlew
 RUN ./gradlew dependencies --no-daemon
 
 # Copy the whole project
 COPY . .
 
 # Build the Spring boot jar
+RUN chmod +x gradlew
 RUN ./gradlew bootJar --no-daemon
 
 # Stage 2 : Create the runtime image
