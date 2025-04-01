@@ -14,6 +14,7 @@ COPY build.gradle settings.gradle gradlew ./
 RUN chmod +x gradlew
 
 # Download dependencies to optimize caching
+RUN chmod +x gradlew
 RUN ./gradlew dependencies --no-daemon
 
 # Copy the whole project
