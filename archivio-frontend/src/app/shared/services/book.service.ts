@@ -6,6 +6,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ResponseWrapper } from '../Models/ResponseWrapper';
 import { ErrorHandlerService } from './error-handler.service';
 import { AuthService } from './auth.service';
+import {
+  CREATE_BOOK_ENDPOINT,
+  DELETE_BOOK_ENDPOINT,
+  FETCH_ALL_BOOKS_ENDPOINT,
+  FETCH_BOOK_BY_ID_ENDPOINT,
+  UPDATE_BOOK_ENDPOINT,
+} from '../constants/url-constants';
 
 @Injectable({ providedIn: 'root' })
 export class BookService implements BookInterface {
@@ -42,7 +49,11 @@ export class BookService implements BookInterface {
     description: string;
   }): Observable<Book> {
     return this.http
-      .post<ResponseWrapper<Book>>(this.url, book, this.getHeaders())
+      .post<ResponseWrapper<Book>>(
+        CREATE_BOOK_ENDPOINT,
+        book,
+        this.getHeaders()
+      )
       .pipe(
         map((response: ResponseWrapper<Book>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -52,7 +63,7 @@ export class BookService implements BookInterface {
   // This function fetches all the books from the database
   findAllBooks(): Observable<Book[]> {
     return this.http
-      .get<ResponseWrapper<Book[]>>(this.url, this.getHeaders())
+      .get<ResponseWrapper<Book[]>>(FETCH_ALL_BOOKS_ENDPOINT, this.getHeaders())
       .pipe(
         map((response: ResponseWrapper<Book[]>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -62,7 +73,10 @@ export class BookService implements BookInterface {
   // This function fetches the book with the given id
   findBookById(id: string): Observable<Book> {
     return this.http
-      .get<ResponseWrapper<Book>>(`${this.url}/${id}`, this.getHeaders())
+      .get<ResponseWrapper<Book>>(
+        FETCH_BOOK_BY_ID_ENDPOINT.replace(':id', id),
+        this.getHeaders()
+      )
       .pipe(
         map((response: ResponseWrapper<Book>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -77,7 +91,11 @@ export class BookService implements BookInterface {
     description: string;
   }): Observable<Book> {
     return this.http
-      .patch<ResponseWrapper<Book>>(this.url, book, this.getHeaders())
+      .patch<ResponseWrapper<Book>>(
+        UPDATE_BOOK_ENDPOINT,
+        book,
+        this.getHeaders()
+      )
       .pipe(
         map((response: ResponseWrapper<Book>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -87,7 +105,10 @@ export class BookService implements BookInterface {
   // This function deletes the given book from the database
   deleteById(id: string): Observable<string> {
     return this.http
-      .delete<ResponseWrapper<string>>(`${this.url}/${id}`, this.getHeaders())
+      .delete<ResponseWrapper<string>>(
+        DELETE_BOOK_ENDPOINT.replace(':id', id),
+        this.getHeaders()
+      )
       .pipe(
         map((response: ResponseWrapper<string>) => response.data),
         catchError(this.errorHandler.handleApiError)

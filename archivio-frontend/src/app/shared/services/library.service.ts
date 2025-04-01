@@ -6,11 +6,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ErrorHandlerService } from './error-handler.service';
 import { ResponseWrapper } from '../Models/ResponseWrapper';
 import { AuthService } from './auth.service';
+import {
+  DELETE_LIBRARIAN_BY_ID_ENDPOINT,
+  FETCH_ALL_LIBRARIAN_ENDPOINT,
+  FETCH_LIBRARIAN_BY_ID_ENDPOINT,
+  UPDATE_LIBRARIAN_ENDPOINT,
+} from '../constants/url-constants';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService implements LibraryInterface {
   // Storing the URLS , endpoints
-  private url = 'http://localhost:8080/librarian';
   private token: string;
 
   // Injecting the necessary dependencies
@@ -40,7 +45,10 @@ export class LibraryService implements LibraryInterface {
   // This function fetches all the librarians data
   fetchAll(): Observable<User[]> {
     return this.http
-      .get<ResponseWrapper<User[]>>(this.url, this.addHeader())
+      .get<ResponseWrapper<User[]>>(
+        FETCH_ALL_LIBRARIAN_ENDPOINT,
+        this.addHeader()
+      )
       .pipe(
         map((response: ResponseWrapper<User[]>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -50,7 +58,10 @@ export class LibraryService implements LibraryInterface {
   // This function fetches the librarian data with the given id
   fetchById(id: string): Observable<User> {
     return this.http
-      .get<ResponseWrapper<User>>(`${this.url}/${id}`, this.addHeader())
+      .get<ResponseWrapper<User>>(
+        FETCH_LIBRARIAN_BY_ID_ENDPOINT.replace(':id', id),
+        this.addHeader()
+      )
       .pipe(
         map((response: ResponseWrapper<User>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -64,7 +75,11 @@ export class LibraryService implements LibraryInterface {
     password: string;
   }): Observable<User> {
     return this.http
-      .patch<ResponseWrapper<User>>(this.url, user, this.addHeader())
+      .patch<ResponseWrapper<User>>(
+        UPDATE_LIBRARIAN_ENDPOINT,
+        user,
+        this.addHeader()
+      )
       .pipe(
         map((response: ResponseWrapper<User>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -74,7 +89,10 @@ export class LibraryService implements LibraryInterface {
   // This function deletes the librarian by the given id
   deleteById(id: string): Observable<string> {
     return this.http
-      .delete<ResponseWrapper<string>>(`${this.url}/${id}`, this.addHeader())
+      .delete<ResponseWrapper<string>>(
+        DELETE_LIBRARIAN_BY_ID_ENDPOINT.replace(':id', id),
+        this.addHeader()
+      )
       .pipe(
         map((response: ResponseWrapper<string>) => response.data),
         catchError(this.errorHandler.handleApiError)

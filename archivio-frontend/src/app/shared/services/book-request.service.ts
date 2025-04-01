@@ -6,11 +6,19 @@ import { BookRequest, Status } from '../Models/BookRequest';
 import { ResponseWrapper } from '../Models/ResponseWrapper';
 import { AuthService } from './auth.service';
 import { BookRequestInterface } from './interfaces/BookRequestInterface';
+import {
+  APPROVE_BOOK_REQUEST_ENDPOINT,
+  CREATE_BOOK_REQUEST_ENDPOINT,
+  FETCH_ALL_BOOK_REQUEST_ENDPOINT,
+  FETCH_BOOK_REQUEST_BY_USER_ENDPOINT,
+  FETCH_REQUEST_BY_EMAIL_AND_STATUS_ENDPOINT,
+  FETCH_REQUEST_BY_ID_ENDPOINT,
+  RETURN_BOOK_REQUEST_ENDPOINT,
+} from '../constants/url-constants';
 
 @Injectable({ providedIn: 'root' })
 export class BookRequestService implements BookRequestInterface {
   // This is the provided URL and tokens
-  private url = 'http://localhost:8080/book/request';
   private token: string;
 
   // Injecting the necessary dependencies
@@ -42,7 +50,7 @@ export class BookRequestService implements BookRequestInterface {
   }): Observable<BookRequest> {
     return this.http
       .post<ResponseWrapper<BookRequest>>(
-        `${this.url}/requested`,
+        CREATE_BOOK_REQUEST_ENDPOINT,
         bookRequest,
         this.getHeaders()
       )
@@ -55,7 +63,10 @@ export class BookRequestService implements BookRequestInterface {
   // This function fetches all the book requests created
   findAll(): Observable<BookRequest[]> {
     return this.http
-      .get<ResponseWrapper<BookRequest[]>>(this.url, this.getHeaders())
+      .get<ResponseWrapper<BookRequest[]>>(
+        FETCH_ALL_BOOK_REQUEST_ENDPOINT,
+        this.getHeaders()
+      )
       .pipe(
         map((response: ResponseWrapper<BookRequest[]>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -66,7 +77,7 @@ export class BookRequestService implements BookRequestInterface {
   findByRequesterEmail(): Observable<BookRequest[]> {
     return this.http
       .get<ResponseWrapper<BookRequest[]>>(
-        `${this.url}/requester`,
+        FETCH_BOOK_REQUEST_BY_USER_ENDPOINT,
         this.getHeaders()
       )
       .pipe(
@@ -79,7 +90,7 @@ export class BookRequestService implements BookRequestInterface {
   findByRequesterEmailAndStatus(status: Status): Observable<BookRequest[]> {
     return this.http
       .get<ResponseWrapper<BookRequest[]>>(
-        `${this.url}/requester?status=${status}`,
+        FETCH_REQUEST_BY_EMAIL_AND_STATUS_ENDPOINT.replace(':status', status),
         this.getHeaders()
       )
       .pipe(
@@ -91,7 +102,10 @@ export class BookRequestService implements BookRequestInterface {
   // This function fetches the book request according to the given id
   findById(id: string): Observable<BookRequest> {
     return this.http
-      .get<ResponseWrapper<BookRequest>>(`${this.url}/${id}`, this.getHeaders())
+      .get<ResponseWrapper<BookRequest>>(
+        FETCH_REQUEST_BY_ID_ENDPOINT.replace(':id', id),
+        this.getHeaders()
+      )
       .pipe(
         map((response: ResponseWrapper<BookRequest>) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -105,7 +119,7 @@ export class BookRequestService implements BookRequestInterface {
   }): Observable<BookRequest> {
     return this.http
       .patch<ResponseWrapper<BookRequest>>(
-        `${this.url}/approve`,
+        APPROVE_BOOK_REQUEST_ENDPOINT,
         bookRequest,
         this.getHeaders()
       )
@@ -122,7 +136,7 @@ export class BookRequestService implements BookRequestInterface {
   }): Observable<BookRequest> {
     return this.http
       .patch<ResponseWrapper<BookRequest>>(
-        `${this.url}/return`,
+        RETURN_BOOK_REQUEST_ENDPOINT,
         bookRequest,
         this.getHeaders()
       )
