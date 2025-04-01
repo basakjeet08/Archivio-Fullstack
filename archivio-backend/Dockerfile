@@ -11,7 +11,7 @@ WORKDIR /app
 # Copy the gradle files separately for better caching
 COPY gradle gradle
 COPY build.gradle settings.gradle gradlew ./
-RUN chmod +x ./gradlew
+RUN chmod +x gradlew
 
 # Download dependencies to optimize caching
 RUN ./gradlew dependencies --no-daemon
