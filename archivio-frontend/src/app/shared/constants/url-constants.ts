@@ -1,4 +1,6 @@
-export const BASE_URL = 'https://spring-boot-backend-h5v7.onrender.com';
+import { environment } from 'src/environments/environments';
+
+export const BASE_URL = environment.apiBaseUrl;
 
 // Authentication Endpoints
 export const LOGIN_ENDPOINT = `${BASE_URL}/login`;
