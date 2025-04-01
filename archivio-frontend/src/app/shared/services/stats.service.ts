@@ -6,6 +6,11 @@ import { catchError, map, Observable } from 'rxjs';
 import { StatsDao } from '../Models/stats/StatsDao';
 import { AuthService } from './auth.service';
 import { ResponseWrapper } from '../Models/ResponseWrapper';
+import {
+  FETCH_ADMIN_STATS_ENDPOINT,
+  FETCH_LIBRARIAN_STATS_ENDPOINT,
+  FETCH_MEMBER_STATS_ENDPOINT,
+} from '../constants/url-constants';
 
 @Injectable({ providedIn: 'root' })
 export class StatsService implements StatsInterface {
@@ -38,7 +43,10 @@ export class StatsService implements StatsInterface {
   // This function fetches the dashboard stats for the admins
   fetchAdminStats(): Observable<StatsDao> {
     return this.http
-      .get<ResponseWrapper<StatsDao>>(`${this.url}/admin`, this.getHeaders())
+      .get<ResponseWrapper<StatsDao>>(
+        FETCH_ADMIN_STATS_ENDPOINT,
+        this.getHeaders()
+      )
       .pipe(
         map((response) => response.data),
         catchError(this.errorHandler.handleApiError)
@@ -49,7 +57,7 @@ export class StatsService implements StatsInterface {
   fetchLibrarianStats(): Observable<StatsDao> {
     return this.http
       .get<ResponseWrapper<StatsDao>>(
-        `${this.url}/librarian`,
+        FETCH_LIBRARIAN_STATS_ENDPOINT,
         this.getHeaders()
       )
       .pipe(
@@ -61,7 +69,10 @@ export class StatsService implements StatsInterface {
   // This function fetches the dashboard stats for the members
   fetchMemberStats(): Observable<StatsDao> {
     return this.http
-      .get<ResponseWrapper<StatsDao>>(`${this.url}/member`, this.getHeaders())
+      .get<ResponseWrapper<StatsDao>>(
+        FETCH_MEMBER_STATS_ENDPOINT,
+        this.getHeaders()
+      )
       .pipe(
         map((response) => response.data),
         catchError(this.errorHandler.handleApiError)

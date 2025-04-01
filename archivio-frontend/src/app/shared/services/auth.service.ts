@@ -2,15 +2,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthInterface } from './interfaces/AuthInterface';
 import { catchError, map, Observable, Subject, tap } from 'rxjs';
-import { Roles } from '../Models/Roles';
 import { User } from '../Models/User';
 import { ResponseWrapper } from '../Models/ResponseWrapper';
 import { ErrorHandlerService } from './error-handler.service';
+import {
+  LOGIN_ENDPOINT,
+  REGISTER_LIBRARIAN_ENDPOINT,
+  REGISTER_MEMBER_ENDPOINT,
+} from '../constants/url-constants';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService implements AuthInterface {
   // API URLs and Local storage Tokens
-  private URL = 'http://localhost:8080';
   private USER_DATA_TOKEN = 'USER_DATA';
 
   // User Subject which will be shared across all the services
@@ -53,7 +56,7 @@ export class AuthService implements AuthInterface {
   // This function logs in the user and returns the user observable
   login(user: { email: string; password: string }): Observable<User> {
     return this.http
-      .post<ResponseWrapper<User>>(`${this.URL}/login`, user)
+      .post<ResponseWrapper<User>>(`${LOGIN_ENDPOINT}`, user)
       .pipe(
         map((response: ResponseWrapper<User>) => response.data),
         tap((user: User) => this.setUserInLocal(user)),
@@ -68,7 +71,7 @@ export class AuthService implements AuthInterface {
     password: string;
   }): Observable<User> {
     return this.http
-      .post<ResponseWrapper<User>>(`${this.URL}/register/librarian`, user, {
+      .post<ResponseWrapper<User>>(`${REGISTER_LIBRARIAN_ENDPOINT}`, user, {
         headers: new HttpHeaders({
           Authorization: `Bearer ${this.getUser()?.token}`,
         }),
@@ -86,7 +89,7 @@ export class AuthService implements AuthInterface {
     password: string;
   }): Observable<User> {
     return this.http
-      .post<ResponseWrapper<User>>(`${this.URL}/register/member`, user)
+      .post<ResponseWrapper<User>>(`${REGISTER_MEMBER_ENDPOINT}`, user)
       .pipe(
         map((response: ResponseWrapper<User>) => response.data),
         catchError(this.errorHandler.handleApiError)
