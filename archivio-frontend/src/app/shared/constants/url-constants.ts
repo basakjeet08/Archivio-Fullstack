@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://archivio.onrender.com';
+export const BASE_URL = 'https://spring-boot-backend-h5v7.onrender.com';
 
 // Authentication Endpoints
 export const LOGIN_ENDPOINT = `${BASE_URL}/login`;
